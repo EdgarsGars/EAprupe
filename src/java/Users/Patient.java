@@ -10,7 +10,7 @@ package Users;
  * Pacient object 
  * @author Edgar
  */
-public class Pacient {
+public class Patient {
     private final String id;
     private final String name;
     private final String surname;
@@ -19,7 +19,7 @@ public class Pacient {
     private final String address;
     private final String familyDoctor;
 
-    public Pacient(String id, String name, String surname, String number, String email, String address, String familyDoctor) {
+    public Patient(String id, String name, String surname, String number, String email, String address, String familyDoctor) {
         this.id = id;
         this.name = name;
         this.surname = surname;

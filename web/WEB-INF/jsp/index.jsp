@@ -5,10 +5,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>JSP page</title>
     </head>
 
     <body>
-        <p> HELLO main pages </p>
+        <form name="login" action="/EAprupe/login" method="post">
+            Account ID: <input type="text" name="accountID"><br>
+            Password  : <input type="password" name="password"><br>
+            <input type="submit" value="Login">
+        </form>
     </body>
 </html>

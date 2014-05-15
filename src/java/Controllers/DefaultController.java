@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Web Controller
  * @author Edgar
  */
+
 @Controller
 public class DefaultController {
     
-    @RequestMapping(value = "/viewdemo", method = RequestMethod.GET)
-    public String demo(ModelMap map) {
-       // map.put("personObject", object);
-       // map.addAttribute("greet", "Hi");
-        return "pagename";
-    }
+    @RequestMapping(value ="/", method = RequestMethod.GET)
+    public String index(ModelMap map){
+        return "index";
+    } 
     
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public String submit(@RequestParam("username") String u,ModelMap model) {
-        model.addAttribute("username", u);
-        return "pagename";
+    @RequestMapping(value="/login",method = RequestMethod.POST)
+    public String login(@RequestParam("accountID")String accountID,@RequestParam("password")String password, ModelMap map){
+        map.addAttribute("accountID", accountID);
+        //TODO check if account exists then ho to main , if false redo       
+        
+        return "mainPage";
     }
-    
     
     
 }
