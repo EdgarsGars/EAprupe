@@ -7,7 +7,7 @@
 package Users;
 
 /**
- * sdsd
+ * 
  * @author Visi
  */
 public class Doctor {
