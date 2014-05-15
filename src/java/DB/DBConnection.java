@@ -9,12 +9,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- *
+ * Handles connection and methods to interact with database
  * @author Edgar
  */
 public class DBConnection {
+    //Connection to database
     private static Connection con;
 
+    //Inicializing connection in static field
     static {
         try {
             String url = "jdbc:mysql://localhost/e_aprupe";
