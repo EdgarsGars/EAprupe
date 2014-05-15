@@ -9,6 +9,6 @@
     </head>
 
     <body>
-        <p> HELLO main pageS  </p>
+        <p> HELLO main pages </p>
     </body>
 </html>
