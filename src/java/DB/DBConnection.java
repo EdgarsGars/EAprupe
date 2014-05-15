@@ -20,7 +20,7 @@ public class DBConnection {
     //@Edgars
     static {
         try {
-            String url = "jdbc:mysql://localhost/e_aprupe";
+            String url = "jdbc:mysql://192.168.0.102/e_aprupe";
             String user = "root";
             String pass = "abcd1234";
             Class.forName("com.mysql.jdbc.Driver");
@@ -66,4 +66,8 @@ public class DBConnection {
         
     }
     
+    
+    public static void main(String[] args) {
+        DBConnection b = new DBConnection();
+    }
 }
