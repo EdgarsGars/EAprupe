@@ -5,10 +5,13 @@
  */
 package DB;
 
+import Users.Patient;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -117,6 +120,14 @@ public class DBConnection {
             System.out.println("Couldn't create patients table!");
         }
 
+        //TODO create Doctors Table (id, name, surname, adress, telephoneNumber)
+        //TODO create MedicalFacilities (id, name, adress, telephoneNumbner)
+        //TODO create MedicalRecords (id, patientID, author, patientDoctorID, file, description, date, comments)
+        //TODO drop, add, delete, find(if not found = null)
+        //TODO boolean delete, add
+        //TODO ? login 
+        //TODO add from account to doctors or patients or facilities
+        
     }
 
     /**
@@ -124,7 +135,7 @@ public class DBConnection {
      *
      * @Veronika Pencaka
      */
-    private static void addAccount(String accountID, String accountPassword, int accountAccessLevel) {
+    private static boolean addAccount(String accountID, String accountPassword, int accountAccessLevel) {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("INSERT INTO accounts(accountID, accountPassword, accountAccessLevel)"
@@ -132,8 +143,9 @@ public class DBConnection {
             System.out.println("New account added to account table: " + accountID);
         } catch (SQLException ex) {
             System.out.println("Couldn't add account!");
+            return false;
         }
-
+        return true;
     }
 
     private static void addPatient(String patientID, String patientName, String patientSurname,
@@ -153,7 +165,7 @@ public class DBConnection {
     private static void deleteAccount(String accountID) {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("DELETE FROM accounts WHERE accountID = '"+accountID+"'");
+            st.executeUpdate("DELETE FROM accounts WHERE accountID = '" + accountID + "'");
             System.out.println("From table account deleted account: " + accountID);
         } catch (SQLException ex) {
             System.out.println("Couldn't delete account: " + accountID);
@@ -164,17 +176,31 @@ public class DBConnection {
     private static void deletePatient(String patientID) {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("DELETE FROM patients WHERE patientID = '"+patientID+"'");
+            st.executeUpdate("DELETE FROM patients WHERE patientID = '" + patientID + "'");
             System.out.println("From table patients deleted patient " + patientID);
         } catch (SQLException ex) {
             System.out.println("Couldn't delete patient: " + patientID);
         }
 
     }
-    
-    
-    
-    
+
+    //TODO
+    public static Patient findPatient(String patientID) {
+
+        return null;
+    }
+
+    //TODO
+    public static List<Patient> findPatients(String patientName, String patientSurname) {
+
+        return null;
+    }
+
+    //TODO
+    public static List<Patient> findPatients(String patientDoctorID) {
+
+        return null;
+    }
 
     public static void main(String[] args) {
         DBConnection.resetDatabase();
