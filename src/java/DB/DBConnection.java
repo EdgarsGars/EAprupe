@@ -7,12 +7,18 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles connection and methods to interact with database
- * @author 
+ *
+ * @author
  */
 public class DBConnection {
+
     //Connection to database
     private static Connection con;
 
@@ -31,43 +37,78 @@ public class DBConnection {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static boolean login(String log, String pass){
-        
-        
-        
+
+    public static boolean login(String log, String pass) {
+
         return true;
     }
-    
-    
+
     /**
-     * Resets database every time we run program
-     * TEST PURPOSE
+     * Resets database every time we run program TEST PURPOSE
      */
-    public static void resetDatabase(){
+    public static void resetDatabase() {
         dropDatabases();
         initDatabases();
+        addAccount("accountID", "password", 1);
+
     }
-    
+
     /**
      * Drops databases
+     *
      * @Veronika
      */
-    private static void dropDatabases(){
+    private static void dropDatabases() {
         //TODO drop Accounts table
+
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("DROP TABLE accounts");
+            System.out.println("DONE");
+        } catch (SQLException ex) {
+            System.out.println("Couldn't drop table!");
+        }
+
     }
-    
+
     /**
      * Creates databases
+     *
      * @Veronika
      */
-    private static void initDatabases(){
-        //TODO create Accounts Table ( (int)id, string(password), int(piekluvesL)
-        
+    private static void initDatabases() {
+        //TODO create Accounts Table ( string(id), string(password), int(piekluvesL)
+
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("CREATE TABLE  accounts ( "
+                    + "accountID varchar(20) NOT NULL UNIQUE,"
+                    + "accountPassword varchar(32) NOT NULL,"
+                    + "accountAccessLevel INT(1) NOT NULL);");
+            System.out.println("DONE");
+        } catch (SQLException ex) {
+            System.out.println("Couldn't create table!");
+        }
+
     }
-    
-    
+
+    private static void addPatient() {
+    }
+
+    private static void addAccount(String acoountID, String accountPassword, int accountAccessLevel) {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("INSERT INTO accounts(accountID, accountPassword, accountAccessLevel) VALUES ('" + acoountID + "','" + accountPassword + "','" + accountAccessLevel + "')");
+            System.out.println("DONE");
+        } catch (SQLException ex) {
+            System.out.println("Couldn't add account!");
+        }
+
+    }
+
     public static void main(String[] args) {
-        DBConnection b = new DBConnection();
+        DBConnection.resetDatabase();
+
+
     }
 }
