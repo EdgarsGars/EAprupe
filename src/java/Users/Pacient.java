@@ -7,9 +7,9 @@
 package Users;
 
 /**
- *
- * @author Visi
+ * 
+ * @author Edgar
  */
-public class Doctor {
-        
+public class Pacient {
+    
 }

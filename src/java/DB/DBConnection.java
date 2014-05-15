@@ -10,13 +10,14 @@ import java.sql.DriverManager;
 
 /**
  * Handles connection and methods to interact with database
- * @author Edgar
+ * @author 
  */
 public class DBConnection {
     //Connection to database
     private static Connection con;
 
     //Inicializing connection in static field
+    //@Edgars
     static {
         try {
             String url = "jdbc:mysql://localhost/e_aprupe";
@@ -39,5 +40,30 @@ public class DBConnection {
     }
     
     
+    /**
+     * Resets database every time we run program
+     * TEST PURPOSE
+     */
+    public static void resetDatabase(){
+        dropDatabases();
+        initDatabases();
+    }
+    
+    /**
+     * Drops databases
+     * @Veronika
+     */
+    private static void dropDatabases(){
+        //TODO drop Accounts table
+    }
+    
+    /**
+     * Creates databases
+     * @Veronika
+     */
+    private static void initDatabases(){
+        //TODO create Accounts Table ( (int)id, string(password), int(piekluvesL)
+        
+    }
     
 }
