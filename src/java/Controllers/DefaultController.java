@@ -39,10 +39,10 @@ public class DefaultController {
     @RequestMapping(value = "/autorize", method = RequestMethod.POST)
     public String autorize(ModelMap map) {
 
-        return "doctorPage";
+        return "mainPage";
     }
 
-    @Secured("DOCTOR")
+    @Secured("ROLE_DOCTOR")
     @RequestMapping(value = "/doctorPage", method = RequestMethod.POST)
     public String doctorPage(ModelMap map) {
         
