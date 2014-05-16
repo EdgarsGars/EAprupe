@@ -7,42 +7,35 @@
 package Users;
 
 /**
- * 
- * @author Visi
+ *
+ * @author User
  */
-public class Doctor {
+public class MedicalFacility {
     private final String id;
     private final String name;
-    private final String surname;
-    private final String telephoneNumber;
     private final String address;
+    private final String telephoneNumber;
     
-    Doctor(String id,String name,String surname,String address,String telephoneNumber){
+    MedicalFacility(String id,String name,String address,String telephoneNumber){
         this.id = id;
         this.name = name;
-        this.surname = surname;
-        this.telephoneNumber = telephoneNumber;
         this.address = address;
+        this.telephoneNumber = telephoneNumber;
     }
     
     public String getId() {
         return id;
     }
-
+    
     public String getName() {
         return name;
     }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
+    
     public String getAddress() {
         return address;
     }
-   
+    
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
 }
