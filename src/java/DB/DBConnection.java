@@ -217,7 +217,9 @@ public class DBConnection {
      * @Veronika Pencaka
      */
     public static Patient findPatient(String patientID) {
-
+        
+        
+        
         return null;
     }
 

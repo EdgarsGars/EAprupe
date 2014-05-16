@@ -43,7 +43,7 @@ public class DefaultController {
     }
 
     @Secured("ROLE_DOCTOR")
-    @RequestMapping(value = "/doctorPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/doctorPage")
     public String doctorPage(ModelMap map) {
         
         

@@ -1,12 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
-    <head>
+    <head onload='document.loginForm.j_username.focus();'>
         <title> Custom Login Page</title>
     </head>
     <body>
         <h3>Login</h3>
         <%
-
             String errorString = (String) request.getAttribute("error");
             if (errorString != null && errorString.trim().equals("true")) {
                 out.println("Your login attempt was unsuccessful. Please retry using correct login name and password.");
