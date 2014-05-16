@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class DBConnection {
     //@Edgars
     static {
         try {
-            String url = "jdbc:mysql://91.105.72.8/e_aprupe";
+            String url = "jdbc:mysql://192.168.0.104/e_aprupe";
             String user = "root";
             String pass = "abcd1234";
             Class.forName("com.mysql.jdbc.Driver");
@@ -37,11 +36,6 @@ public class DBConnection {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static boolean login(String log, String pass) {
-
-        return true;
     }
 
     /**
@@ -65,12 +59,11 @@ public class DBConnection {
     }
 
     /**
-     * Drops databases
+     * Drops all databases TEST PURPOSE
      *
      * @Veronika Pencaka
      */
     private static void dropDatabases() {
-        //TODO drop Accounts table
 
         try {
             Statement st = con.createStatement();
@@ -84,12 +77,11 @@ public class DBConnection {
     }
 
     /**
-     * Creates databases
+     * Creates all databases
      *
      * @Veronika Pencaka
      */
     private static void initDatabases() {
-        //TODO create Accounts Table ( string(id), string(password), int(acessLevel)
 
         try {
             Statement st = con.createStatement();
@@ -102,7 +94,6 @@ public class DBConnection {
             System.out.println("Couldn't create accounts table!");
         }
 
-        //TODO create Patients Table (id, name, surname, adress, telefunNumber, e_mail, doctorID)
         try {
             Statement st = con.createStatement();
             st.executeUpdate("CREATE TABLE  patients ( "
@@ -117,7 +108,10 @@ public class DBConnection {
         } catch (SQLException ex) {
             System.out.println("Couldn't create patients table!");
         }
-
+        
+        
+        //@Veronika Pencaka
+        
         //TODO create Doctors Table (id, name, surname, adress, telephoneNumber)
         //TODO create MedicalFacilities (id, name, adress, telephoneNumbner)
         //TODO create MedicalRecords (id, patientID, author, patientDoctorID, file, description, date, comments)
@@ -125,11 +119,16 @@ public class DBConnection {
         //TODO boolean delete, add
         //TODO ? login 
         //TODO add from account to doctors or patients or facilities
-        
     }
 
     /**
-     * Adds new account
+     * Adds new account to accounts table
+     *
+     * @param accountID
+     * @param accountPassword
+     * @param accountAccessLevel
+     * @return true if account added to table
+     * @return false if exception was trown
      *
      * @Veronika Pencaka
      */
@@ -146,6 +145,19 @@ public class DBConnection {
         return true;
     }
 
+    /**
+     * Adds new patient to patients table
+     *
+     * @param patientID
+     * @param patientName
+     * @param patientSurname
+     * @param patientAdress
+     * @param patientTelefonNumber
+     * @param patientEmail
+     * @param patientDoctorID
+     *
+     * @Veronika Pencaka
+     */
     private static void addPatient(String patientID, String patientName, String patientSurname,
             String patientAdress, String patientTelefonNumber, String patientEmail, String patientDoctorID) {
         try {
@@ -160,6 +172,13 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Deletes an account from accounts table
+     *
+     * @param accountID
+     *
+     * @Veronika Pencaka
+     */
     private static void deleteAccount(String accountID) {
         try {
             Statement st = con.createStatement();
@@ -171,6 +190,13 @@ public class DBConnection {
 
     }
 
+    /**
+     * Deletes a patient from patients table
+     *
+     * @param patientID
+     *
+     * @Veronika Pencaka
+     */
     private static void deletePatient(String patientID) {
         try {
             Statement st = con.createStatement();
@@ -183,18 +209,42 @@ public class DBConnection {
     }
 
     //TODO
+    /**
+     * Finds a patient in patients table by id and returns a patient
+     *
+     * @param patientID
+     *
+     * @Veronika Pencaka
+     */
     public static Patient findPatient(String patientID) {
 
         return null;
     }
 
     //TODO
+    /**
+     * Finds a patients in patients table by name and surname and returns a
+     * patient list
+     *
+     * @param patientName
+     * @param patientSurname
+     *
+     * @Veronika Pencaka
+     */
     public static List<Patient> findPatients(String patientName, String patientSurname) {
 
         return null;
     }
 
     //TODO
+    /**
+     * Finds a patients in patients table by patients doctor id and returns a
+     * patient list
+     *
+     * @param patientDoctorID
+     *
+     * @Veronika Pencaka
+     */
     public static List<Patient> findPatients(String patientDoctorID) {
 
         return null;
