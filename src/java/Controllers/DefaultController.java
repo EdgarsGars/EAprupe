@@ -32,10 +32,12 @@ public class DefaultController {
 
     @RequestMapping(value = "/loginError", method = RequestMethod.GET)
     public String loginError(ModelMap map) {
-
+        map.addAttribute("error","error");
         return "loginPage";
     }
 
+    
+    
     @RequestMapping(value = "/autorize", method = RequestMethod.POST)
     public String autorize(ModelMap map) {
 
@@ -43,7 +45,7 @@ public class DefaultController {
     }
 
     @Secured("ROLE_DOCTOR")
-    @RequestMapping(value = "/doctorPage")
+    @RequestMapping(value = "/doctorPage", method = RequestMethod.GET)
     public String doctorPage(ModelMap map) {
         
         

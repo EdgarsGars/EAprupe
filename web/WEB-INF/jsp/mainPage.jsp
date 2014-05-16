@@ -11,7 +11,7 @@
         You have successfully logged in.
         <br/>
          
-        <a href="<c:url value="/admin"/>">Admin Page</a>
+        <a href="<c:url value="/doctorPage"/>">Admin Page</a>
         <br/>
         <br/>
         <br/>

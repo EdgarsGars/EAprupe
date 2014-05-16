@@ -17,6 +17,7 @@
     <security:global-method-security secured-annotations="enabled"/>
      
     <security:http auto-config="true">
+        <security:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" /> 
         <security:intercept-url pattern="/d*" access="ROLE_DOCTOR, ROLE_REGULAR_USER" />
         <security:form-login login-page="/login" default-target-url="/main"
             authentication-failure-url="/loginError"/>
@@ -26,7 +27,7 @@
         <security:authentication-provider>
             <security:user-service>
                 <security:user name="alpha" password="pass1" authorities="ROLE_DOCTOR" />
-                <security:user name="beta" password="pass2" authorities="ROLE_REGULAR_USER" />
+                <security:user name="beta"  password="pass2" authorities="ROLE_REGULAR_USER" />
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
