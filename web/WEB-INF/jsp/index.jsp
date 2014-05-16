@@ -9,10 +9,6 @@
     </head>
 
     <body>
-        <form name="login" action="/EAprupe/login" method="post">
-            Account ID: <input type="text" name="accountID"><br>
-            Password  : <input type="password" name="password"><br>
-            <input type="submit" value="Login">
-        </form>
+      
     </body>
 </html>

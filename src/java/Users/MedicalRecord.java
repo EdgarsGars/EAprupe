@@ -7,9 +7,9 @@
 package Users;
 
 /**
- * 
- * @author
+ *
+ * @author 
  */
-public class Doctor {
-        
+public class MedicalRecord {
+    
 }
