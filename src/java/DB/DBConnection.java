@@ -414,7 +414,7 @@ public class DBConnection {
      * Deletes medicalFacility from table MedicalFacilities
      *
      * @param ID
-     * 
+     *  
      * @return true if medical facility deleted from table
      * @return false if exception was trown
      *
@@ -443,7 +443,7 @@ public class DBConnection {
      * @return false if exception was trown
      * 
      */
-    
+     
     private static boolean deleteMedicalRecord(String ID) {
         try {
             Statement st = con.createStatement();
