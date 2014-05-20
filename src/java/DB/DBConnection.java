@@ -5,12 +5,16 @@
  */
 package DB;
 
+import Users.Doctor;
+import Users.MedicalFacility;
+import Users.MedicalRecord;
 import Users.Patient;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +43,9 @@ public class DBConnection {
         }
     }
 
+    //TODO find medical records by date
+    
+    
     /**
      * Resets database every time we run program TEST PURPOSE
      *
@@ -52,26 +59,31 @@ public class DBConnection {
         addAccount("2", "password", 1);
         addAccount("3", "password", 1);
         addAccount("4", "password", 1);
-        deleteAccount("2");
+        deleteAccount("1");
 
-        addPatient("1", "John", "Doe", "Hollywood", "+37199595867", "bob@bob.lv", "doctorID");
-        addPatient("2", "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID");
-        addPatient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID");
+        addPatient("1", "Jane", "Doe", "Hollywood", "+37199595867", "bob@bob.lv", "doctorID");
+        addPatient("2", "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        addPatient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID3");
         addPatient("4", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID");
-        deletePatient("2");
-        findPatient("3");
+        deletePatient("1");
+        findPatientByID("3");
+        findPatientsByFullname("Jane","Doe");
+        findPatientsByDoctorID("doctorID3");
+        findPatientsBySurname("Doe");
 
         addDoctor("1", "John", "Doe", "Hollywood", "+37199595867");
         addDoctor("2", "John", "Doe", "Hollywood", "+37199595867");
         addDoctor("3", "John", "Doe", "Hollywood", "+37199595867");
         addDoctor("4", "John", "Doe", "Hollywood", "+37199595867");
-        deleteDoctor("2");
+        deleteDoctor("1");
+        findDoctorByID("3");
 
         addMedicalFacility("1", "Stradina", "Riga", "+37123456789");
         addMedicalFacility("2", "Stradina", "Riga", "+37123456789");
         addMedicalFacility("3", "Stradina", "Riga", "+37123456789");
         addMedicalFacility("4", "Stradina", "Riga", "+37123456789");
-        deleteMedicalFacility("2");
+        deleteMedicalFacility("1");
+        findMedicalFacilityByID("3");
         
         addMedicalRecords("1", "7", "434", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "medicalRecordDescription", "medicalRecordDate", "medicalRecordComments");
@@ -81,7 +93,9 @@ public class DBConnection {
                 "medicalRecordFilePath", "tur kaut-kas kustinas", "16.05.2014", "Apsveicu, jums ir meitene!");
         addMedicalRecords("4", "753", "843", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "tur kaut-kas kustinas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        deleteMedicalRecord("2");
+        deleteMedicalRecord("1");
+        findMedicalRecordByID("3");
+        findRecordByPatientID("2");
         
     }
 
@@ -462,7 +476,7 @@ public class DBConnection {
     /****************************************************************Find methods************************************************/
     
     /**
-     * Finds a patient in patients table by id and returns a pat
+     * Finds a patient in patients table by id and returns a patient
      *
      * @return patient if it was found
      * @throws java.sql.SQLExceptionient
@@ -471,7 +485,7 @@ public class DBConnection {
      *
      * @Veronika Pencaka
      */
-    public static Patient findPatient(String ID) {
+    public static Patient findPatientByID(String ID) {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '" + ID + "'");
@@ -481,41 +495,215 @@ public class DBConnection {
                         rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("Address"), rs.getString("DoctorID"));
             }
         } catch (SQLException ex) {
-            System.out.println("Error in finding patient!");
+            ex.printStackTrace();
         }
         System.out.println("Couldn't find patient: " + ID);
         return null;
     }
+        
+    /**
+     * Finds a doctor in doctors table and returns a doctor
+     * 
+     * @param ID
+     * @return Doctor if it was found
+     * 
+     * @Veronika Pencaka
+     */
+    
+    public static Doctor findDoctorByID(String ID) {
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM doctors WHERE ID = '" + ID + "'");
+            if (rs.next()) {
+                System.out.println("Doctor found: " + rs.getString("Name") + " " + rs.getString("Surname"));
+                return new Doctor(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"),
+                        rs.getString("Address"), rs.getString("TelephoneNumber"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Couldn't find doctor: " + ID);
+        return null;
+    }
+    /**
+     *Finds MedicalFacility in medicalFacilities table and return MedicalFacility
+     * 
+     * @param ID
+     * @return MedicalFacility if it was found
+     * 
+     * @Veronika Pencaka
+     */
+    public static MedicalFacility findMedicalFacilityByID(String ID) {
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalFacilities WHERE ID = '" + ID + "'");
+            if (rs.next()) {
+                System.out.println("Medical facility found: " + rs.getString("Name"));
+                return new MedicalFacility(rs.getString("ID"), rs.getString("Name"), rs.getString("Address"),
+                        rs.getString("TelephoneNumber"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Couldn't find medical facility: " + ID);
+        return null;
+    }
+    
+    /**
+     * Finds MedicalRecord in medicalRecords table and return MedicalRecord
+     * 
+     * @param ID
+     * @return MedicalRecord if it was found
+     * 
+     * @Veronika Pencaka
+     */
+    public static MedicalRecord findMedicalRecordByID(String ID) {
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID = '"+3+"'");
+            if (rs.next()) {
+                System.out.println("Medical record found: " + rs.getString("ID"));
+                return new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"),
+                        rs.getString("Comments"), rs.getString("Date"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Couldn't find medical record: " + ID);
+        return null;
+    }
 
-    //TODO
     /**
      * Finds a patients in patients table by name and surname and returns a
      * patient list
      *
      * @param Name
      * @param Surname
+     * @return list of patients
      *
      * @Veronika Pencaka
      */
-    public static List<Patient> findPatients(String Name, String Surname) {
-
-        return null;
+    public static List<Patient> findPatientsByFullname(String Name, String Surname) {
+        ArrayList<Patient> patients = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + Name + "' AND Surname LIKE '"+ Surname +"'");
+            while (rs.next()) {
+                System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + Name + " " + Surname);
+                Patient foundPatient = new Patient(rs.getString("ID"), Name, Surname, rs.getString("Address"),
+                        rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
+                patients.add(foundPatient);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!patients.isEmpty()){ 
+            return patients;
+        }
+        else{
+            System.out.println("Couldn't find patients with name " + Name + " and surname " + Surname);
+            return null;
+        }
     }
-
-    //TODO
+    
+      
     /**
-     * Finds a patients in patients table by patients doctor id and returns a
+     * Finds a patients in patients table by patients doctor id and returns a list of patients
      * patient list
      *
      * @param DoctorID
+     * @return list of patients
      *
      * @Veronika Pencaka
      */
-    public static List<Patient> findPatients(String DoctorID) {
-
-        return null;
+    public static List<Patient> findPatientsByDoctorID(String DoctorID) {
+        ArrayList<Patient> patients = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE DoctorID LIKE '" + DoctorID + "'");
+            while (rs.next()) {
+                System.out.println("Patient found: " + rs.getString("ID")+ " " + rs.getString("Name") + " " + rs.getString("Surname"));
+                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
+                        rs.getString("TelephoneNumber"), rs.getString("Email"), DoctorID);
+                patients.add(foundPatient);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!patients.isEmpty()){ 
+            return patients;
+        }
+        else{
+            System.out.println("Couldn't find patients with doctorID = " + DoctorID);
+            return null;
+        }
+    }
+    /**
+     * Finds patients in table by surname and retirns list of patients
+     * 
+     * @param Surname
+     * @return list of patients
+     * 
+     * @Veronika Pencaka
+     */
+    public static List<Patient> findPatientsBySurname(String Surname) {
+        ArrayList<Patient> patients = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + Surname + "'");
+            while (rs.next()) {
+                System.out.println("Patient found: " + rs.getString("ID")+ " " + rs.getString("Name") + " " + Surname);
+                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), Surname, rs.getString("Address"),
+                        rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
+                patients.add(foundPatient);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!patients.isEmpty()){ 
+            return patients;
+        }
+        else{
+            System.out.println("Couldn't find patients with surname = " + Surname);
+            return null;
+        }
     }
 
+    /**
+     * Finds medical record in medicalRecords table by patientID
+     * 
+     * @param PatientID
+     * @return list of medical records
+     * 
+     * @Veronika Pencaka
+     */ 
+    public static List<MedicalRecord> findRecordByPatientID(String PatientID) {
+        ArrayList<MedicalRecord> records = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID LIKE '" + PatientID + "'");
+            while (rs.next()) {
+                System.out.println("Medical Record found: " + rs.getString("ID"));
+                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"), 
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"), rs.getString("Comments"),
+                        rs.getString("Date"));
+                records.add(foundRecord);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!records.isEmpty()){ 
+            return records;
+        }
+        else{
+            System.out.println("Couldn't find medical records with patient id = " + PatientID);
+            return null;
+        }
+    }
+    
+    
+   
     public static void main(String[] args) {
         DBConnection.resetDatabase();
 

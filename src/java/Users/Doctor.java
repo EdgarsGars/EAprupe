@@ -17,7 +17,7 @@ public class Doctor {
     private final String telephoneNumber;
     private final String address;
     
-    Doctor(String id,String name,String surname,String address,String telephoneNumber){
+    public Doctor(String id,String name,String surname,String address,String telephoneNumber){
         this.id = id;
         this.name = name;
         this.surname = surname;

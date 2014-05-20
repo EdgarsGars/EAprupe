@@ -20,7 +20,7 @@ public class MedicalRecord {
     private final String date;
     private final String comments;
     
-    MedicalRecord(String id,String patientID,String author,String patientDoctorID,
+    public MedicalRecord(String id,String patientID,String author,String patientDoctorID,
             String filePath,String description,String date,String comments){
         this.id = id;
         this.patientID = patientID;

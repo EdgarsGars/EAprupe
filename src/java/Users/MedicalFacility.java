@@ -16,7 +16,7 @@ public class MedicalFacility {
     private final String address;
     private final String telephoneNumber;
     
-    MedicalFacility(String id,String name,String address,String telephoneNumber){
+    public MedicalFacility(String id,String name,String address,String telephoneNumber){
         this.id = id;
         this.name = name;
         this.address = address;
