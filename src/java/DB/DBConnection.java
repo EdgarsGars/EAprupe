@@ -5,10 +5,7 @@
  */
 package DB;
 
-import Users.Doctor;
-import Users.MedicalFacility;
-import Users.MedicalRecord;
-import Users.Patient;
+import Users.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,13 +22,13 @@ import java.util.List;
 public class DBConnection {
 
     //Connection to database
-    private static Connection con;
+    public static Connection con;
 
     //Inicializing connection in static field
     //@Edgars
     static {
         try {
-            String url = "jdbc:mysql://192.168.0.104/e_aprupe";
+            String url = "jdbc:mysql://127.0.0.1/e_aprupe";
             String user = "root";
             String pass = "abcd1234";
             Class.forName("com.mysql.jdbc.Driver");
@@ -63,7 +60,7 @@ public class DBConnection {
 
         addPatient("1", "Jane", "Doe", "Hollywood", "+37199595867", "bob@bob.lv", "doctorID");
         addPatient("2", "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
-        addPatient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID3");
+        addPatient("3", "Bobis", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID3");
         addPatient("4", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID");
         deletePatient("1");
         findPatientByID("3");

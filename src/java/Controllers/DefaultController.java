@@ -6,6 +6,7 @@
 package Controllers;
 
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,29 +23,21 @@ public class DefaultController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap map) {
-        return "loginPage";
+        return "/login";
     }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap map) {
         return "loginPage";
     }
 
-    @RequestMapping(value = "/loginError", method = RequestMethod.GET)
-    public String loginError(ModelMap map) {
-        map.addAttribute("error","error");
-        return "loginPage";
-    }
-
-    
     
     @RequestMapping(value = "/autorize", method = RequestMethod.POST)
-    public String autorize(ModelMap map) {
-
+    public String autorize(@RequestParam("username")String userID,@RequestParam("password")String password,ModelMap map) {
+        map.addAttribute("userID", userID);
+        
         return "mainPage";
     }
 
-    @Secured("ROLE_DOCTOR")
     @RequestMapping(value = "/doctorPage", method = RequestMethod.GET)
     public String doctorPage(ModelMap map) {
         

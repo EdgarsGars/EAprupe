@@ -4,14 +4,32 @@
     Author     : Edgar
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Patient list by id 'doctorID3'</title>
+        
+        
+        
+        
+        
     </head>
     <body>
         <h1>This is doctor page</h1>
+        <%
+            List<Users.Patient> patientList = DB.DBConnection.findPatientsByDoctorID("doctorID3");
+            for (Users.Patient elem : patientList) {
+                    out.print("<BR>"+ elem.getId()+ " " + elem.getName() + " " + elem.getSurname());
+                }
+            
+            
+        %>    
+        <a href="/logout">Logout</a>
+        
+        
+        
     </body>
 </html>

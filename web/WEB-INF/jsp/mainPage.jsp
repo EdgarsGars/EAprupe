@@ -1,26 +1,32 @@
 <%-- 
     Document   : mainPage
-    Created on : May 15, 2014, 7:54:30 PM
+    Created on : May 20, 2014, 11:19:04 AM
     Author     : Edgar
 --%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
- 
+    <head>
+        <%  
+            Object user = session.getAttribute("user");
+            if(user == null){
+                String redirectURL = "/EAprupe/login?=error";
+                response.sendRedirect(redirectURL);
+            }
+        %>    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
     <body>
-        You have successfully logged in.
-        <br/>
-         
-        <a href="<c:url value="/doctorPage"/>">Admin Page</a>
-        <br/>
-        <br/>
-        <br/>
-        <a href="<c:url value="/common"/>">Regular User Page</a>
-         
-        <br/>
-        <br/>
-        <br/>
-        <a href="<c:url value="/logout"/>">Logout</a>
-         
+         <%
+            
+            //Object user = new Users.Patient();
+            session.setAttribute("user",user);
+        
+        %>
+        
+        <h1>${userID}</h1>
+<a href="/logout">Logout</a>
     </body>
 </html>
