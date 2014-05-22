@@ -89,6 +89,7 @@ public class DBConnection {
         MedicalRecordService.deleteMedicalRecord("1");
         MedicalRecordService.findMedicalRecordByID("3");
         MedicalRecordService.findRecordByPatientID("2");
+        System.out.println("Done!");
 
     }
 
