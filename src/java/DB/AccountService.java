@@ -20,17 +20,20 @@ public class AccountService {
 
     private static final Connection con = DBConnection.con;
 
-    public static boolean Login(String ID, String Password) {
+    public static Object Login(String ID, String Password) {
         try {
             Statement st = DBConnection.con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM accounts WHERE ID LIKE '" + ID + "' AND Password LIKE '" + Password + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM accounts WHERE ID = '" + ID + "' AND Password = '" + Password + "'");
             if (rs.next()) {
-                return true;
+                int level = rs.getInt("AccessLevel");
+                if(level == 1) return PatientService.findPatientByID(ID);
+                else if(level == 2) return DoctorService.findDoctorByID(ID);
+                else if(level == 3) return MedicalFacilityService.findMedicalFacilityByID(ID);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Cannot find such account! ");
         }
-        return false;
+        return null;
     }
 
     /**

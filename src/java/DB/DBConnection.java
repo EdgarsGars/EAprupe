@@ -5,17 +5,12 @@
  */
 package DB;
 
-import Users.Doctor;
-import Users.MedicalFacility;
-import Users.MedicalRecord;
-import Users.Patient;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Handles connection and methods to interact with database
