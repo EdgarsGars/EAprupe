@@ -91,7 +91,7 @@ public class MedicalRecordService {
     public static MedicalRecord findMedicalRecordByID(String ID) {
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID = '" + 3 + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID = '" + ID + "'");
             if (rs.next()) {
                 System.out.println("Medical record found: " + rs.getString("ID"));
                 return new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
@@ -117,7 +117,7 @@ public class MedicalRecordService {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID LIKE '" + patientID + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID = '" + patientID + "'");
             while (rs.next()) {
                 System.out.println("Medical Record found: " + rs.getString("ID"));
                 MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),

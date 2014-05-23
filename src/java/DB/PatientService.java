@@ -118,7 +118,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + name + "' OR Surname LIKE '" + surname + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '%" + name + "%' AND Surname LIKE '%" + surname + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + name + " " + surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -150,7 +150,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE DoctorID LIKE '" + doctorID + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE DoctorID = '" + doctorID + "'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + rs.getString("Surname"));
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -180,7 +180,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + surname + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '%" + surname + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -202,7 +202,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + name + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '%" + name + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + name);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),

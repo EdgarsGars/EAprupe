@@ -67,8 +67,6 @@ public class DefaultController {
         } else return "redirect:/login";
     }
 
-    
-    
     /**
      * Logout controller handles session cleaning
      * @param map model map
@@ -82,8 +80,6 @@ public class DefaultController {
         status.setComplete();
         return "loginPage";
     }
-
-    
     
     /**
      * Authorization controller

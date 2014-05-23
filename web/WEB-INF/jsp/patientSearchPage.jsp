@@ -67,10 +67,12 @@
             List<Patient> patients = null;
             if (name != null && surname != null) {
                 patients = PatientService.findPatientsByFullname(name, surname);
-            }
-            if(surname != null) {
+            }else if(surname != null) {
                 patients = PatientService.findPatientsBySurname(surname);
+            }else if(name != null){
+                patients = PatientService.findPatientsByName(name);
             }
+            
             if (patients != null) {
                 for (Patient patient : patients) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
