@@ -8,25 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%  
-            Object user = session.getAttribute("user");
-            if(user == null){
-                String redirectURL = "/EAprupe/login?=error";
-                response.sendRedirect(redirectURL);
-            }
-        %>    
+      
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
          <%
             
-            //Object user = new Users.Patient();
-            session.setAttribute("user",user);
+           out.print("Welcome " + ((Users.Patient)(session.getAttribute("user"))).getName());
         
         %>
         
-        <h1>${userID}</h1>
-<a href="/logout">Logout</a>
+        
+<a href="/EAprupe/logout">Logout</a>
     </body>
 </html>

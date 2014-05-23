@@ -2,7 +2,7 @@
     <head> <title> Autorizacija </title> </head>
 <body>
    <h1>Login</h1>
-   <form action="/EAprupe/autorize" method='post'>
+   <form action="/EAprupe/authorize" method='post'>
       <table>
          <tr>
              <% if(request.getAttribute("error") != null) out.print("Failed to login!"); %>
