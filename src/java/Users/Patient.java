@@ -32,7 +32,7 @@ public class Patient implements Serializable{
      * @param address patients home address
      * @param familyDoctor patients family doctor ID
      */
-    public Patient(String id, String name, String surname, String number, String email, String address, String familyDoctor) {
+    public Patient(String id, String name, String surname, String address, String number, String email, String familyDoctor) {
         this.id = id;
         this.name = name;
         this.surname = surname;

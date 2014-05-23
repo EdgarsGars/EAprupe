@@ -33,13 +33,13 @@ public class DoctorService {
      *
      * @Veronika Pencaka
      */
-    public static boolean addDoctor(String ID, String Name, String Surname,
-            String Address, String TelephoneNumber) {
+    public static boolean addDoctor(String ID, String name, String surname,
+            String address, String telephoneNumber) {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("INSERT INTO doctors(ID, Name, Surname, Address, TelephoneNumber)"
-                    + "VALUES ('" + ID + "','" + Name + "','" + Surname + "','" + Address + "','"
-                    + TelephoneNumber + "')");
+                    + "VALUES ('" + ID + "','" + name + "','" + surname + "','" + address + "','"
+                    + telephoneNumber + "')");
             System.out.println("New doctor added to doctors table: " + ID);
         } catch (SQLException ex) {
             ex.printStackTrace();

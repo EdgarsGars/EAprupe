@@ -5,7 +5,7 @@
  */
 package DB;
 
-import static DB.DBConnection.con;
+
 import Users.MedicalRecord;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -39,15 +39,15 @@ public class MedicalRecordService {
      *
      * @Veronika Pencaka
      */
-    public static boolean addMedicalRecords(String ID, String PatientID,
-            String AuthorID, String PatientDoctorID, String FilePath,
-            String Description, String Date, String Comments) {
+    public static boolean addMedicalRecords(String ID, String patientID,
+            String authorID, String patientDoctorID, String filePath,
+            String description, String date, String comments) {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("INSERT INTO medicalRecords(ID, PatientID, AuthorID, PatientDoctorID, FilePath, "
-                    + "Description, Date, Comments )" + "VALUES ('" + ID + "','" + PatientID + "','"
-                    + AuthorID + "','" + PatientDoctorID + "','" + FilePath + "','"
-                    + Description + "','" + Date + "','" + Comments + "')");
+                    + "Description, Date, Comments )" + "VALUES ('" + ID + "','" + patientID + "','"
+                    + authorID + "','" + patientDoctorID + "','" + filePath + "','"
+                    + description + "','" + date + "','" + comments + "')");
             System.out.println("New medicalRecord added to medicalRecords table: " + ID);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -113,11 +113,11 @@ public class MedicalRecordService {
      *
      * @Veronika Pencaka
      */
-    public static List<MedicalRecord> findRecordByPatientID(String PatientID) {
+    public static List<MedicalRecord> findRecordByPatientID(String patientID) {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID LIKE '" + PatientID + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID LIKE '" + patientID + "'");
             while (rs.next()) {
                 System.out.println("Medical Record found: " + rs.getString("ID"));
                 MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
@@ -131,7 +131,7 @@ public class MedicalRecordService {
         if (!records.isEmpty()) {
             return records;
         } else {
-            System.out.println("Couldn't find medical records with patient id = " + PatientID);
+            System.out.println("Couldn't find medical records with patient id = " + patientID);
             return null;
         }
     }

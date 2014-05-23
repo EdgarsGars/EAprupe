@@ -19,10 +19,10 @@ public class AccountService {
 
     private static final Connection con = DBConnection.con;
 
-    public static Object Login(String ID, String Password) {
+    public static Object Login(String ID, String password) {
         try {
             Statement st = DBConnection.con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM accounts WHERE ID = '" + ID + "' AND Password = '" + Password + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM accounts WHERE ID = '" + ID + "' AND Password = '" + password + "'");
             if (rs.next()) {
                 int level = rs.getInt("AccessLevel");
                 if(level == 1) return PatientService.findPatientByID(ID);
@@ -47,11 +47,11 @@ public class AccountService {
      *
      * @Veronika Pencaka
      */
-    public static boolean addAccount(String ID, String Password, int AccessLevel) {
+    public static boolean addAccount(String ID, String password, int accessLevel) {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("INSERT INTO accounts(ID, Password, AccessLevel)"
-                    + " VALUES ('" + ID + "','" + Password + "','" + AccessLevel + "')");
+                    + " VALUES ('" + ID + "','" + password + "','" + accessLevel + "')");
             System.out.println("New account added to account table: " + ID);
         } catch (SQLException ex) {
             ex.printStackTrace();

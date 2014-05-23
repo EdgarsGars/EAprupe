@@ -32,13 +32,13 @@ public class MedicalFacilityService {
      *
      * @Veronika Pencaka
      */
-    public static boolean addMedicalFacility(String ID, String Name,
-            String Address, String TelephoneNumber) {
+    public static boolean addMedicalFacility(String ID, String name,
+            String address, String telephoneNumber) {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("INSERT INTO medicalFacilities(ID, Name, Address, TelephoneNumber)"
-                    + "VALUES ('" + ID + "','" + Name + "','"
-                    + Address + "','" + TelephoneNumber + "')");
+                    + "VALUES ('" + ID + "','" + name + "','"
+                    + address + "','" + telephoneNumber + "')");
             System.out.println("New medicalFacility added to medicalFacilities table: " + ID);
         } catch (SQLException ex) {
             ex.printStackTrace();

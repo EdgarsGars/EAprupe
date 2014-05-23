@@ -114,13 +114,13 @@ public class PatientService {
      *
      * @Veronika Pencaka
      */
-    public static List<Patient> findPatientsByFullname(String Name, String Surname) {
+    public static List<Patient> findPatientsByFullname(String name, String surname) {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + Name + "' OR Surname LIKE '" + Surname + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + name + "' OR Surname LIKE '" + surname + "'");
             while (rs.next()) {
-                System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + Name + " " + Surname);
+                System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + name + " " + surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
                         rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
                 patients.add(foundPatient);
@@ -132,7 +132,7 @@ public class PatientService {
         if (!patients.isEmpty()) {
             return patients;
         } else {
-            System.out.println("Couldn't find patients with name " + Name + " and surname " + Surname);
+            System.out.println("Couldn't find patients with name " + name + " and surname " + surname);
             return null;
         }
     }
@@ -146,11 +146,11 @@ public class PatientService {
      *
      * @Veronika Pencaka
      */
-    public static List<Patient> findPatientsByDoctorID(String DoctorID) {
+    public static List<Patient> findPatientsByDoctorID(String doctorID) {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE DoctorID LIKE '" + DoctorID + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE DoctorID LIKE '" + doctorID + "'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + rs.getString("Surname"));
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -163,7 +163,7 @@ public class PatientService {
         if (!patients.isEmpty()) {
             return patients;
         } else {
-            System.out.println("Couldn't find patients with doctorID = " + DoctorID);
+            System.out.println("Couldn't find patients with doctorID = " + doctorID);
             return null;
         }
     }
@@ -176,14 +176,14 @@ public class PatientService {
      *
      * @Veronika Pencaka
      */
-    public static List<Patient> findPatientsBySurname(String Surname) {
+    public static List<Patient> findPatientsBySurname(String surname) {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + Surname + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + surname + "'");
             while (rs.next()) {
-                System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + Surname);
-                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), Surname, rs.getString("Address"),
+                System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + surname);
+                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
                         rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
                 patients.add(foundPatient);
             }
@@ -193,9 +193,31 @@ public class PatientService {
         if (!patients.isEmpty()) {
             return patients;
         } else {
-            System.out.println("Couldn't find patients with surname = " + Surname);
+            System.out.println("Couldn't find patients with surname = " + surname);
             return null;
         }
     }
 
+    public static List<Patient> findPatientsByName(String name) {
+        ArrayList<Patient> patients = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + name + "'");
+            while (rs.next()) {
+                System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + name);
+                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
+                        rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
+                patients.add(foundPatient);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (!patients.isEmpty()) {
+            return patients;
+        } else {
+            System.out.println("Couldn't find patients with surname = " + name);
+            return null;
+        }
+    }
+    
 }
