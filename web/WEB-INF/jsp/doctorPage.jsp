@@ -20,7 +20,7 @@
     <body>
         <h1>This is doctor page</h1>
         <%
-            List<Users.Patient> patientList = DB.DBConnection.findPatientsByDoctorID("doctorID3");
+            List<Users.Patient> patientList = DB.PatientService.findPatientsByDoctorID("doctorID3");
             for (Users.Patient elem : patientList) {
                     out.print("<BR>"+ elem.getId()+ " " + elem.getName() + " " + elem.getSurname());
                 }

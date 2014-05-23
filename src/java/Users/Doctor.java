@@ -6,11 +6,13 @@
 
 package Users;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Visi
  */
-public class Doctor {
+public class Doctor implements Serializable {
     private final String id;
     private final String name;
     private final String surname;
