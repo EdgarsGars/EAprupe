@@ -117,7 +117,7 @@ public class MedicalRecordService {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE ID = '" + patientID + "'");
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE PatientID = '" + patientID + "'");
             while (rs.next()) {
                 System.out.println("Medical Record found: " + rs.getString("ID"));
                 MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),

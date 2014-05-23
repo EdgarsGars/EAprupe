@@ -6,6 +6,7 @@
 package Controllers;
 
 import DB.AccountService;
+import DB.PatientService;
 import Users.*;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -61,9 +62,9 @@ public class DefaultController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(ModelMap map, HttpSession session) {
         if (session.getAttribute("user") instanceof Patient) {
-            return "patientHomePage";
+            return "p_homePage";
         } else if (session.getAttribute("user") instanceof Doctor) {
-            return "doctorsHomePage";
+            return "d_homePage";
         } else return "redirect:/login";
     }
 
@@ -110,7 +111,6 @@ public class DefaultController {
         }
     }
 
-    
     @RequestMapping(value = "/patientSearch", method = RequestMethod.POST)
     public String patientSearch(@RequestParam("userID") String ID, @RequestParam("name") String name,
             @RequestParam("surname")String surname, ModelMap map, HttpSession session){
@@ -125,7 +125,7 @@ public class DefaultController {
         return "redirect:/home";
     }
     
-      @RequestMapping(value = "/patientSearch", method = RequestMethod.GET)
+    @RequestMapping(value = "/patientSearch", method = RequestMethod.GET)
     public String patientSearch(ModelMap map, HttpSession session){
         
         if(session.getAttribute("user") instanceof Doctor){
@@ -135,5 +135,15 @@ public class DefaultController {
         return "redirect:/home";
     }
     
-    
+    @RequestMapping(value = "/patient", method = RequestMethod.GET)
+    public String patientPage(@RequestParam("patientID")String petientID, ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            Patient p = PatientService.findPatientByID(petientID);
+            if(((Doctor)session.getAttribute("user")).getId().equals(p.getFamilyDoctor())){
+                map.addAttribute("patientID", petientID);
+                return "d_patientPage";            
+            }
+        }
+        return "redirect:/home";
+    }
 }

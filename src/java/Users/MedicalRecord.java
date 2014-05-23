@@ -23,7 +23,7 @@ public class MedicalRecord implements Serializable{
     private final String comments;
     
     public MedicalRecord(String id,String patientID,String author,String patientDoctorID,
-            String filePath,String description,String date,String comments){
+            String filePath,String description,String comments,String date){
         this.id = id;
         this.patientID = patientID;
         this.author = author;

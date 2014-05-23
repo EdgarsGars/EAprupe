@@ -34,9 +34,9 @@
 
         <br>
         <form name="input" action="/EAprupe/patientSearch" method="post">
-            Person ID     : <input type="text" name="userID" placeholder="123456-12345">
-            Person Name   : <input type="text" name="name">
-            Person Surname: <input type="text" name="surname">
+            Person ID     : <input type="text" name="userID" placeholder="123456-12345" autocomplete="off">
+            Person Name   : <input type="text" name="name" autocomplete="off">
+            Person Surname: <input type="text" name="surname" autocomplete="off">
             <input type="submit" value="Find">
         </form>
         <br>
@@ -58,7 +58,7 @@
                 Patient patient = PatientService.findPatientByID(ID);
                 if (patient != null) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
-                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/patientPage?patientID=" + ID
+                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
                                 + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td></tr>");
 
                     }
@@ -76,7 +76,7 @@
             if (patients != null) {
                 for (Patient patient : patients) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
-                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/patientPage?patientID=" + ID
+                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
                                 + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress()+ "</td></tr>");
                     }
                 }
