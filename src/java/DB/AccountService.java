@@ -9,8 +9,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+
+>>>>>>> bf8d97f523c59e8ba5b9c8158baf25ab673fedd3
 
 /**
  *

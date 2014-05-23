@@ -94,7 +94,11 @@ public class PatientService {
             if (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("Name") + " " + rs.getString("Surname"));
                 return new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"),
+<<<<<<< HEAD
                         rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("Address"), rs.getString("DoctorID"));
+=======
+                        rs.getString("Address"), rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
+>>>>>>> bf8d97f523c59e8ba5b9c8158baf25ab673fedd3
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -117,10 +121,17 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
+<<<<<<< HEAD
             ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + Name + "' AND Surname LIKE '" + Surname + "'");
             while (rs.next()) {
                 System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + Name + " " + Surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), Name, Surname, rs.getString("Address"),
+=======
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + Name + "' OR Surname LIKE '" + Surname + "'");
+            while (rs.next()) {
+                System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + Name + " " + Surname);
+                Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
+>>>>>>> bf8d97f523c59e8ba5b9c8158baf25ab673fedd3
                         rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
                 patients.add(foundPatient);
             }
@@ -152,7 +163,11 @@ public class PatientService {
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + rs.getString("Surname"));
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
+<<<<<<< HEAD
                         rs.getString("TelephoneNumber"), rs.getString("Email"), DoctorID);
+=======
+                        rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
+>>>>>>> bf8d97f523c59e8ba5b9c8158baf25ab673fedd3
                 patients.add(foundPatient);
             }
         } catch (SQLException ex) {
