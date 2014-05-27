@@ -203,6 +203,8 @@ public class DefaultController {
     public String addComment(@RequestParam("comment") String comment,@RequestParam("ID")String id,ModelMap map, HttpSession session){
         if(session.getAttribute("user") instanceof Doctor){
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
+            System.out.println("ID "+ id);
+            System.out.println("Comment " + comment);
             MedicalRecordService.updateComment(id, comment);
         }
         return "redirect:/home";

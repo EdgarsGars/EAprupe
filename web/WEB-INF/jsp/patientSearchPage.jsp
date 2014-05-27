@@ -25,6 +25,7 @@
             <ul>
                 <li><a href='/EAprupe/home'><span>Home</span></a></li>
                 <li class='active'><a href='/EAprupe/patientSearch'><span>Patients</span></a></li>
+                <li><a href='/EAprupe/addPatient'><span>Add Patient</span></a></li>
                 <li><a href='#'><span>Settings</span></a></li>
                 <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
             </ul>
@@ -36,9 +37,7 @@
             Person Name   : <input type="text" name="name" autocomplete="off">
             Person Surname: <input type="text" name="surname" autocomplete="off">
             <input type="submit" value="Find">
-        </form>
-        <br>
-
+        </form><br>
 
         <%
             String ID = (String) request.getAttribute("userID");

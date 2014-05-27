@@ -53,7 +53,7 @@
             if(records != null){
                 System.out.println(records.size());
                 for(MedicalRecord r : records){
-                    out.print("<tr><td>"+ r.getId() +"</td><td>"+r.getAuthor()+"</td><td>"+ r.getFilePath()+"</td><td>"+ r.getDescription()+"</td><td>"+ r.getComments()+"</td><td>"+ r.getDate()+"</td></tr>");
+                    out.print("<tr><td>"+ r.getId() +"</td><td>"+r.getAuthor()+"</td><td>"+ r.getFilePath()+"</td><td>"+ r.getDescription()+"</td><td><a href=\"/EAprupe/medicalRecord?ID="+r.getId()+"\">VIEW</a></td><td>"+ r.getDate()+"</td></tr>");
                 }
             }
             
