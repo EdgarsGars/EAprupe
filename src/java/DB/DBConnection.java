@@ -26,7 +26,7 @@ public class DBConnection {
     //@Edgars
     static {
         try {
-            String url = "jdbc:mysql://192.168.0.104/e_aprupe";
+            String url = "jdbc:mysql://127.0.0.1/e_aprupe";
             String user = "root";
             String pass = "abcd1234";
             Class.forName("com.mysql.jdbc.Driver");

@@ -29,21 +29,28 @@
         </div>
         <!--             -->
         <%
-            String medID = request.getParameter("medID");
+            String medID = (String) request.getAttribute("medID");
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(medID);
             Patient p = PatientService.findPatientByID(r.getPatientId());
             if (r != null && p != null) {
-                out.print("<h3>Medical Record " + p.getName() + " " + p.getSurname() + "</h3>");
+                out.print("<h3>Medical Record</h3>");
 
                 out.print("<br><b>Patient name    : </b> " + p.getName());
                 out.print("<br><b>Patient surname : </b> " + p.getSurname());
                 out.print("<br><b>Patient ID      : </b> " + p.getId());
                 out.print("<br><b>Medical facility: </b> " + r.getAuthor());//TODO show name
                 out.print("<br><b>Attached file   : </b> " + r.getFilePath());
-                out.print("<br><b>Descripton      : </b> " + r.getDescription());
+                out.print("<br><b>Descripton      : </b><br>" + r.getDescription());
                 out.print("<br><b>Add Comment     : </b> ");
-            }
-        %>     
+            }%>
+
+        <form action="/EAprupe/updateMed" method="post">
+            <p><textarea rows="10" cols="45" name="text"></textarea></p>
+            <p><input type="submit" value="Add Comment"></p>
+        </form>
+
+
+
 
 
 
