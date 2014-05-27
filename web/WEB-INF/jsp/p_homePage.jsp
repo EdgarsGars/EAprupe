@@ -27,8 +27,7 @@
             </ul>
         </div>
         <!--             -->
-        
-        <h3>Your medical record history</h3>
+        <br><h3>Your medical record history</h3>
         <%
            out.print("<table style = \"width:600px\""
                  + "<tr><th>Facility</th>"
@@ -43,7 +42,9 @@
                for(int i = 0; i < recordList.size(); i++){
                MedicalRecord r = recordList.get(i);
                if(r.getComments() != null && r.getComments().length() > 0){
-                   out.print("<tr><td>"+ r.getAuthor() +"</td><td>"+r.getDescription()+"</td><td>"+ r.getComments()+"</td><td>"+ r.getDate()+"</td></tr>");
+                   
+                   
+                   out.print("<tr><td>"+ r.getAuthor() +"</td><td>"+r.getDescription()+"</td><td><a href=\"/EAprupe/medicalRecord?ID="+r.getId()+"\""+">VIEW</a></td><td>"+ r.getDate()+"</td></tr>");
                }
            }
            }
