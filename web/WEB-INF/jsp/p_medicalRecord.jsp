@@ -20,7 +20,7 @@
             <ul>
                 <li  class='active'><a href='/EAprupe/home'><span>Home</span></a></li>
                 <li><a href='/EAprupe/patientSearch'><span>Contact Doctor</span></a></li>
-                <li><a href='#'><span>Settings</span></a></li>
+                <li><a href='/EAprupe/settings'><span>Settings</span></a></li>
                 <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
             </ul>
         </div>

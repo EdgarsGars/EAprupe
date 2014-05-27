@@ -199,7 +199,7 @@ public class DefaultController {
         return "redirect:/home";
     }
     
-     @RequestMapping(value = "/updateMed", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateMed", method = RequestMethod.POST)
     public String addComment(@RequestParam("comment") String comment,@RequestParam("ID")String id,ModelMap map, HttpSession session){
         if(session.getAttribute("user") instanceof Doctor){
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
@@ -209,5 +209,20 @@ public class DefaultController {
         }
         return "redirect:/home";
     }
+    
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    public String settings(ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            String userID = ((Doctor)session.getAttribute("user")).getId();
+            map.addAttribute("doctorID", userID);
+            return "d_settings";
+        }else if(session.getAttribute("user") instanceof Patient){
+            String userID = ((Patient)session.getAttribute("user")).getId();
+            map.addAttribute("patientID", userID);
+            return "p_settings";
+        }
+        return "redirect:/home";
+    }
+    
     
 }
