@@ -105,6 +105,31 @@ public class MedicalRecordService {
         return null;
     }
 
+    public static List<MedicalRecord> findMedicalRecordsByDoctorID(String doctorID){
+        ArrayList<MedicalRecord> records = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE PatientDoctorID = '" + doctorID + "'");
+            while (rs.next()) {
+                System.out.println("Medical Record found: " + rs.getString("ID"));
+                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"), rs.getString("Comments"),
+                        rs.getString("Date"));
+                records.add(foundRecord);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (!records.isEmpty()) {
+            return records;
+        } else {
+            System.out.println("Couldn't find medical records with doctor id = " + doctorID);
+            return null;
+        }
+        
+    }
+    
+    
     /**
      * Finds medical record in medicalRecords table by patientID
      *

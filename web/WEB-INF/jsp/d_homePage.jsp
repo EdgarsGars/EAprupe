@@ -4,37 +4,46 @@
     Author     : Edgar
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="DB.MedicalRecordService"%>
+<%@page import="Users.MedicalRecord"%>
 <%@page import="Users.Patient"%>
 <%@page import="DB.PatientService"%>
-<%@page import="Users.Doctor"%>
+<%@page import="Users.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Doctors Page</title>
-        <style>
-            table,th,td{border:1px solid black; border-collapse:collapse; }
-            th,td{ padding:5px; }
-            th{ text-align:left; }
-        </style>
+        <link href="css/styles.css" rel="stylesheet" >
+        <link href="css/tableStyle.css" rel="stylesheet">
     </head>
     <body>
         <!--TOP MENU -->
-        <table>
-            <tr>
-                <td><a href="/EAprupe/home" STYLE="text-decoration: none">Home</a></td>
-                <td><a href="/EAprupe/patientSearch" STYLE="text-decoration: none">Patients</a></td>
-                <td><a href="#" STYLE="text-decoration: none">Medical Records</a></td>
-                <td><a href="/EAprupe/settings" STYLE="text-decoration: none">Settings</a></td>
-                <td><a href="/EAprupe/logout" STYLE="text-decoration: none">Logout</a></td>
-            </tr>
+        <div id='cssmenu'>
+            <ul>
+                <li class='active'><a href='/EAprupe/home'><span>Home</span></a></li>
+                <li><a href='/EAprupe/patientSearch'><span>Patients</span></a></li>
+                <li><a href='#'><span>Settings</span></a></li>
+                <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
+            </ul>
+        </div>
+        <!--             -->
+        <br>
+        <h3> Medical records that need your attention! </h3>
+        <table style="width: 400px">
+            <tr><th>ID</th><th> Patient Name </th><th> Date </th></tr>
+                    <%
+                        String ID = ((Doctor) request.getAttribute("user")).getId();
+                        List<MedicalRecord> records = MedicalRecordService.findMedicalRecordsByDoctorID(ID);
+                        for (MedicalRecord r : records) {
+                            if (r.getComments() == null || r.getComments().length() == 0) {
+                                Patient p = PatientService.findPatientByID(r.getPatientId());
+                                out.print("<tr><td>" + r.getId() + "</td><td><a href='/EAprupe/medicalRecord?ID=" + r.getId() + "'> " + p.getName() + " " + p.getSurname() + "</a></td><td>" + r.getDate() + "</td></tr>");
+                            }
+                        }
+                    %>           
         </table>
-
-
-
-
-
-
     </body>
 </html>

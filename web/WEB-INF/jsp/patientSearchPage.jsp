@@ -2,8 +2,11 @@
     Document   : patientSearchPage
     Created on : May 22, 2014, 10:20:05 PM
     Author     : Edgar
---%>
 
+    TODO:
+        sort patients by name
+--%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="Users.Doctor"%>
 <%@page import="java.util.List"%>
 <%@page import="DB.PatientService"%>
@@ -12,26 +15,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Patient Search Page</title>
-        <style>
-            table,th,td{border:1px solid black; border-collapse:collapse; }
-            th,td{ padding:5px; }
-            th{ text-align:left; }
-        </style>
+        <link href="css/styles.css" rel="stylesheet" >
+        <link href="css/tableStyle.css" rel="stylesheet" >
     </head>
     <body>
         <!--TOP MENU -->
-        <table>
-            <tr>
-                <td><a href="/EAprupe/home" STYLE="text-decoration: none">Home</a></td>
-                <td><a href="/EAprupe/patientSearch" STYLE="text-decoration: none">Patients</a></td>
-                <td><a href="#" STYLE="text-decoration: none">Medical Records</a></td>
-                <td><a href="/EAprupe/settings" STYLE="text-decoration: none">Settings</a></td>
-                <td><a href="/EAprupe/logout" STYLE="text-decoration: none">Logout</a></td>
-            </tr>
-        </table>
-
+        <div id='cssmenu'>
+            <ul>
+                <li><a href='/EAprupe/home'><span>Home</span></a></li>
+                <li class='active'><a href='/EAprupe/patientSearch'><span>Patients</span></a></li>
+                <li><a href='#'><span>Settings</span></a></li>
+                <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
+            </ul>
+        </div>
+        <!--             -->
         <br>
         <form name="input" action="/EAprupe/patientSearch" method="post">
             Person ID     : <input type="text" name="userID" placeholder="123456-12345" autocomplete="off">
@@ -52,37 +50,39 @@
                     + "<th>Patient Name </th>"
                     + "<th>Patient Surname</th>"
                     + "<th>Patient Address</th>"
+                    + "<th>Patient Number</th>"
                     + "</tr>");
 
-            if (ID != null) {
+            List<Patient> patients = null;
+            if (ID != null && ID.length() > 0) {
                 Patient patient = PatientService.findPatientByID(ID);
                 if (patient != null) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
                         out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
-                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td></tr>");
-
+                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td><td>" + patient.getNumber()+ "</td></tr>");
                     }
                 }
-            }
-            List<Patient> patients = null;
-            if (name != null && surname != null) {
+            } else if (name != null && surname != null) {
                 patients = PatientService.findPatientsByFullname(name, surname);
-            }else if(surname != null) {
+            } else if (surname != null) {
                 patients = PatientService.findPatientsBySurname(surname);
-            }else if(name != null){
+            } else if (name != null) {
                 patients = PatientService.findPatientsByName(name);
+            } else {
+                patients = PatientService.findPatientsByDoctorID(((Doctor) session.getAttribute("user")).getId());
             }
-            
+
             if (patients != null) {
                 for (Patient patient : patients) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
                         out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
-                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress()+ "</td></tr>");
+                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td><td>" + patient.getNumber() + "</td></tr>");
                     }
                 }
             }
 
             out.print("</table>");
+            request.setAttribute("userID", null);
         %>        
 
     </body>

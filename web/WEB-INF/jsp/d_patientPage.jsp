@@ -15,24 +15,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style>
-            table,th,td{border:1px solid black; border-collapse:collapse; }
-            th,td{ padding:5px; }
-            th{ text-align:left; }
-        </style>
+        <link href="css/styles.css" rel="stylesheet" >
+        <link href="css/tableStyle.css" rel="stylesheet" >
         <title>Patient ${patientID}</title>
     </head>
     <body>
         <!--TOP MENU -->
-        <table>
-            <tr>
-                <td><a href="/EAprupe/home" STYLE="text-decoration: none">Home</a></td>
-                <td><a href="/EAprupe/patientSearch" STYLE="text-decoration: none">Patients</a></td>
-                <td><a href="#" STYLE="text-decoration: none">Medical Records</a></td>
-                <td><a href="/EAprupe/settings" STYLE="text-decoration: none">Settings</a></td>
-                <td><a href="/EAprupe/logout" STYLE="text-decoration: none">Logout</a></td>
-            </tr>
-        </table>
+        <div id='cssmenu'>
+            <ul>
+                <li class='active'><a href='/EAprupe/home'><span>Home</span></a></li>
+                <li><a href='/EAprupe/patientSearch'><span>Patients</span></a></li>
+                <li><a href='#'><span>Settings</span></a></li>
+                <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
+            </ul>
+        </div>
+        <!--             -->
 
         <%
             Patient p = PatientService.findPatientByID(request.getParameter("patientID"));

@@ -1,8 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ *   
+ *  
+*/
 package Controllers;
 
 import DB.AccountService;
@@ -114,7 +113,6 @@ public class DefaultController {
     @RequestMapping(value = "/patientSearch", method = RequestMethod.POST)
     public String patientSearch(@RequestParam("userID") String ID, @RequestParam("name") String name,
             @RequestParam("surname")String surname, ModelMap map, HttpSession session){
-        
         map.addAttribute("userID", ID);
         map.addAttribute("name",name);
         map.addAttribute("surname",surname);
@@ -146,4 +144,46 @@ public class DefaultController {
         }
         return "redirect:/home";
     }
+    
+    
+    
+    @RequestMapping(value = "/addPatient")
+    public String addPatientPage(ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            return "d_addPatient";            
+        }
+        return "redirect:/home";
+    }
+    
+    @RequestMapping(value = "/medicalRecord")
+    public String medRecord(@RequestParam("ID") String id,ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            System.out.println("med -->" + id);
+            map.addAttribute("medID",id);
+            return "d_medicalRecord";   
+        }
+        return "redirect:/home";
+    }
+    
+    
+    @RequestMapping(value = "/docAddPatient", method = RequestMethod.POST)
+    public String addPatient(@RequestParam("userID")String pID,@RequestParam("name")String pName, @RequestParam("surname")String pSur,
+            @RequestParam("address")String address,@RequestParam("number")String number,@RequestParam("email")String email,@RequestParam("password1")String pass1,
+            @RequestParam("password2")String pass2,ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            if(pass1.equals(pass2)){
+                if(PatientService.findPatientByID(pID) == null){
+                    String doctorID = ((Doctor) session.getAttribute("user")).getId();
+                    AccountService.addAccount(pID, pass1, 1);
+                    PatientService.addPatient(pID, pName, pSur, address, number, email, doctorID);
+                }
+            }         
+            return "redirect:/patient?patientID="+pID;            
+        }
+        
+        return "redirect:/home";
+    }
+    
+    
+    
 }

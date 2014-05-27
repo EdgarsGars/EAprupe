@@ -18,4 +18,13 @@
     <system systemId="http://www.springframework.org/schema/util/spring-util.xsd" uri="www.springframework.org/schema/util/spring-util.xsd"/>
     <system systemId="http://www.springframework.org/schema/beans/spring-beans-4.0.xsd" uri="www.springframework.org/schema/beans/spring-beans-4.0.xsd"/>
     <system systemId="http://www.springframework.org/schema/tool/spring-tool-4.0.xsd" uri="www.springframework.org/schema/tool/spring-tool-4.0.xsd"/>
+    <system systemId="http://www.springframework.org/schema/mvc" uri="www.springframework.org/schema/mvc/index"/>
+    <system systemId="http://www.springframework.org/schema/aop" uri="www.springframework.org/schema/aop/index"/>
+    <system systemId="http://www.springframework.org/schema/context" uri="www.springframework.org/schema/context/index"/>
+    <system systemId="http://www.springframework.org/schema/jee" uri="www.springframework.org/schema/jee/index"/>
+    <system systemId="http://www.springframework.org/schema/lang" uri="www.springframework.org/schema/lang/index"/>
+    <system systemId="http://www.springframework.org/schema/tx" uri="www.springframework.org/schema/tx/index"/>
+    <system systemId="http://www.springframework.org/schema/util" uri="www.springframework.org/schema/util/index"/>
+    <system systemId="http://www.springframework.org/schema/security" uri="www.springframework.org/schema/security/index"/>
+    <system systemId="http://www.springframework.org/schema/beans" uri="www.springframework.org/schema/beans/index"/>
 </catalog>
