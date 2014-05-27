@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+
 /**
  *
  * @author Visi
@@ -18,6 +19,16 @@ import java.sql.Statement;
 public class AccountService {
 
     private static final Connection con = DBConnection.con;
+    
+    /**
+     * 
+     * 
+     * @param ID
+     * @param password
+     * @return 
+     * 
+     * @Veronika Pencaka
+     */
 
     public static Object Login(String ID, String password) {
         try {
@@ -82,6 +93,18 @@ public class AccountService {
             return false;
         }
         return true;
+    }
+    
+    public void changePassword(String ID, String password){
+       try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE accounts SET Password = '"+password+"' WHERE ID = '"+ ID +"'");
+            System.out.println("Password was changed!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Couldn't change password!");
+        }
+       
     }
 
 }

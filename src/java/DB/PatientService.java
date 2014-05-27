@@ -219,5 +219,18 @@ public class PatientService {
             return null;
         }
     }
-    
+
+    public void updatePatient(String ID, String name, String surname, String address, String telephoneNumber, String email, String doctorID) {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE accounts SET name = '" + name + "', surname = '"+ surname +"', address = '"+ address +"',"
+                    + " telephoneNumber = '"+ telephoneNumber +"', email = '"+ email +"', doctorID = '"+ doctorID +"' WHERE ID = '" + ID + "'");
+            System.out.println("Patient's information was changed!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Couldn't change patient's information!");
+        }
+
+    }
+
 }
