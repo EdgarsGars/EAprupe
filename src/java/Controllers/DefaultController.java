@@ -155,6 +155,18 @@ public class DefaultController {
         return "redirect:/home";
     }
     
+    @RequestMapping(value = "/contact")
+    public String pacientDoctorContact(ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Patient){
+            String doctorID = ((Patient)session.getAttribute("user")).getFamilyDoctor();
+            map.addAttribute("doctorID",doctorID);
+            return "p_contact";            
+        }
+        return "redirect:/home";
+    }
+    
+    
+    
     @RequestMapping(value = "/medicalRecord")
     public String medRecord(@RequestParam("ID") String id,ModelMap map, HttpSession session){
         if(session.getAttribute("user") instanceof Doctor){
