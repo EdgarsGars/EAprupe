@@ -44,8 +44,8 @@
                 out.print("<br><b>Add Comment     : </b> ");
             }%>
 
-        <form action="/EAprupe/updateMed" method="post">
-            <p><textarea rows="10" cols="45" name="text"></textarea></p>
+        <form action="/EAprupe/updateMed?ID=<%=medID%>" method="post">
+            <p><textarea rows="10" cols="45" name="comment"></textarea></p>
             <p><input type="submit" value="Add Comment"></p>
         </form>
 

@@ -5,6 +5,7 @@
 package Controllers;
 
 import DB.AccountService;
+import DB.MedicalRecordService;
 import DB.PatientService;
 import Users.*;
 import javax.servlet.http.HttpSession;
@@ -170,9 +171,11 @@ public class DefaultController {
     @RequestMapping(value = "/medicalRecord")
     public String medRecord(@RequestParam("ID") String id,ModelMap map, HttpSession session){
         if(session.getAttribute("user") instanceof Doctor){
-            System.out.println("med -->" + id);
             map.addAttribute("medID",id);
             return "d_medicalRecord";   
+        }else if(session.getAttribute("user") instanceof Patient){
+            map.addAttribute("medID",id);
+            return "p_medicalRecord";   
         }
         return "redirect:/home";
     }
@@ -196,6 +199,13 @@ public class DefaultController {
         return "redirect:/home";
     }
     
-    
+     @RequestMapping(value = "/updateMed", method = RequestMethod.POST)
+    public String addComment(@RequestParam("comment") String comment,@RequestParam("ID")String id,ModelMap map, HttpSession session){
+        if(session.getAttribute("user") instanceof Doctor){
+            MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
+            MedicalRecordService.updateComment(id, comment);
+        }
+        return "redirect:/home";
+    }
     
 }

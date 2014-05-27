@@ -129,6 +129,16 @@ public class MedicalRecordService {
         
     }
     
+    public static void updateComment(String medID,String comment){
+         try {
+            Statement st = con.createStatement();
+            st.executeQuery("UPDATE medicalRecords SET Comments = '"+comment+"' WHERE ID = '" + medID + "'");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+    }
     
     /**
      * Finds medical record in medicalRecords table by patientID
