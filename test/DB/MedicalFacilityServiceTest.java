@@ -83,19 +83,17 @@ public class MedicalFacilityServiceTest extends TestCase {
 
     /**
      * Test of findMedicalFacilityByID method, of class MedicalFacilityService.
-     * REDOO
      */
     @Test
     public void testFindMedicalFacilityByID() throws SQLException {
         System.out.println("findMedicalFacilityByID");
         String ID = "4";
-        MedicalFacilityService.findMedicalFacilityByID(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalFacilities WHERE ID = '" + ID + "' AND NAME = 'Stradina' "
-                + "AND ADDRESS = 'Riga' AND TELEPHONENUMBER = '+37123456789'");
-        if (rs.next()) {
-            assertTrue(true);
-        }
+        MedicalFacility result = MedicalFacilityService.findMedicalFacilityByID(ID);
+        MedicalFacility expResult = new MedicalFacility(ID, "Stradina", "Riga", "+37123456789");
+        assertTrue((expResult.getId().equals(result.getId())) &&
+                expResult.getName().equals(result.getName()) &&
+                expResult.getAddress().equals(result.getAddress()) &&
+                expResult.getTelephoneNumber().equals(result.getTelephoneNumber()));
     }
     
 }

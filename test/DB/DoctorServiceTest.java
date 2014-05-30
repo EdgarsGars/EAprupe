@@ -84,19 +84,17 @@ public class DoctorServiceTest extends TestCase {
 
     /**
      * Test of findDoctorByID method, of class DoctorService.
-     * REDOO
      */
     @Test
     public void testFindDoctorByID() throws SQLException {
         System.out.println("findDoctorByID");
         String ID = "2";
-        DoctorService.findDoctorByID(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM doctors WHERE ID = '" + ID + "' AND NAME = 'John' "
-                + "AND SURNAME = 'DOE' AND ADDRESS = 'Hollywood' AND TELEPHONENUMBER = '+37199595867'");
-        if (rs.next()) {
-            assertTrue(true);
-        }
+        Doctor result = DoctorService.findDoctorByID(ID);
+        Doctor expResult = new Doctor("2", "John", "Doe", "Hollywood", "+37199595867");
+        assertTrue((expResult.getId().equals(result.getId())) &&
+                expResult.getName().equals(result.getName()) &&
+                expResult.getSurname().equals(result.getSurname()) &&
+                expResult.getTelephoneNumber().equals(result.getTelephoneNumber()));
     }
 
 }

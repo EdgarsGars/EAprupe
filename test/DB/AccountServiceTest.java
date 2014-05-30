@@ -5,12 +5,14 @@
  */
 package DB;
 
-
+import static org.junit.Assert.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
 
@@ -46,7 +48,6 @@ public class AccountServiceTest extends TestCase {
 
     /**
      * Test of Login method, of class AccountService.
-     * REDOOO
      */
     public void testLogin() throws SQLException {
         String ID = "9"; 

@@ -6,14 +6,18 @@
 
 package DB;
 
-
+import Users.MedicalFacility;
+import Users.MedicalRecord;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -57,7 +61,7 @@ public class MedicalRecordServiceTest extends TestCase {
         String authorID = "321";
         String patientDoctorID = "medicalRecordPatientDoctorID";
         String filePath = "medicalRecordFilePath";
-        String description = "tur nekas nekustas";
+        String description = "nav neka";
         String date = "16.05.2014";
         String comments = "Apsveicu, jums viss ir kartiba";
         MedicalRecordService.addMedicalRecords(ID, patientID, authorID, patientDoctorID, filePath, description, date, comments);
@@ -77,7 +81,7 @@ public class MedicalRecordServiceTest extends TestCase {
     public void testDeleteMedicalRecord() throws SQLException {
         System.out.println("deleteMedicalRecord");
         String ID = "5";
-        MedicalFacilityService.deleteMedicalFacility(ID);
+        MedicalRecordService.deleteMedicalRecord(ID);
         Statement st = DBConnection.con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE ID = '" + ID + "'");
         if (!rs.next()) {
@@ -87,49 +91,78 @@ public class MedicalRecordServiceTest extends TestCase {
 
     /**
      * Test of findMedicalRecordByID method, of class MedicalRecordService.
-     * REDOO
      */
     @Test
     public void testFindMedicalRecordByID() throws SQLException {
         System.out.println("findMedicalRecordByID");
         String ID = "3";
-        MedicalRecordService.findMedicalRecordByID(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE ID = '" + ID + "'");
-        if (rs.next()) {
-            assertTrue(true);
-        }
+        MedicalRecord result = MedicalRecordService.findMedicalRecordByID(ID);
+        MedicalRecord expResult = new MedicalRecord(ID, "23", "42", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        assertTrue((expResult.getId().equals(result.getId())) &&
+                expResult.getPatientId().equals(result.getPatientId()) &&
+                expResult.getAuthor().equals(result.getAuthor()) &&
+                expResult.getPatientDoctorId().equals(result.getPatientDoctorId()) &&
+                expResult.getFilePath().equals(result.getFilePath()) &&
+                expResult.getDescription().equals(result.getDescription()) &&
+                expResult.getComments().equals(result.getComments()) &&
+                expResult.getDate().equals(result.getDate()));
     }
 
     /**
      * Test of findMedicalRecordsByDoctorID method, of class MedicalRecordService.
-     * REDOOO
      */
     @Test
     public void testFindMedicalRecordsByDoctorID() throws SQLException {
         System.out.println("findMedicalRecordsByDoctorID");
-        String doctorID = "42";
-        MedicalRecordService.findMedicalRecordsByDoctorID(doctorID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE PatientDoctorID = '" + doctorID + "'");
-        if (rs.next()) {
-            assertTrue(true);
+        String doctorID = "medicalRecordPatientDoctorID";
+        List<MedicalRecord> result = MedicalRecordService.findMedicalRecordsByDoctorID(doctorID);
+        MedicalRecord record1 = new MedicalRecord("2", "5", "67", doctorID, "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        MedicalRecord record2 = new MedicalRecord("3", "23", "42", doctorID, "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        MedicalRecord record3 = new MedicalRecord("4", "753", "843", doctorID, "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        List<MedicalRecord> expResult = new ArrayList<>();
+        expResult.add(record1);
+        expResult.add(record2);
+        expResult.add(record3);
+        for(int i =0; i<result.size(); i++){
+            MedicalRecord r1, r2;
+            r1 = result.get(i);
+            r2 = expResult.get(i);
+            assertTrue((r1.getId().equals(r2.getId())) &&
+                r1.getPatientId().equals(r2.getPatientId()) &&
+                r1.getAuthor().equals(r2.getAuthor()) &&
+                r1.getPatientDoctorId().equals(r2.getPatientDoctorId()) &&
+                r1.getFilePath().equals(r2.getFilePath()) &&
+                r1.getDescription().equals(r2.getDescription()) &&
+                r1.getComments().equals(r2.getComments()) &&
+                r1.getDate().equals(r2.getDate()));
         }
+        
     }
 
     /**
      * Test of findRecordByPatientID method, of class MedicalRecordService.
-     * REDOOO
      */
     @Test
     public void testFindRecordByPatientID() throws SQLException {
         System.out.println("findRecordByPatientID");
         String patientID = "753";
-        MedicalRecordService.findRecordByPatientID(patientID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE PatientID = '" + patientID + "'");
-        if (rs.next()) {
-            assertTrue(true);
+        List<MedicalRecord> result = MedicalRecordService.findRecordByPatientID(patientID);
+        MedicalRecord record = new MedicalRecord("4", patientID, "843", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        List<MedicalRecord> expResult = new ArrayList<>();
+        expResult.add(record);
+        for(int i =0; i<result.size(); i++){
+            MedicalRecord r1, r2;
+            r1 = result.get(i);
+            r2 = expResult.get(i);
+            //assertEquals(r1, r2);
+            assertTrue((r1.getId().equals(r2.getId())) &&
+                r1.getPatientId().equals(r2.getPatientId()) &&
+                r1.getAuthor().equals(r2.getAuthor()) &&
+                r1.getPatientDoctorId().equals(r2.getPatientDoctorId()) &&
+                r1.getFilePath().equals(r2.getFilePath()) &&
+                r1.getDescription().equals(r2.getDescription()) &&
+                r1.getComments().equals(r2.getComments()) &&
+                r1.getDate().equals(r2.getDate()));
         }
     }
     

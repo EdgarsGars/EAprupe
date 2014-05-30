@@ -12,8 +12,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -52,8 +55,8 @@ public class PatientServiceTest extends TestCase {
     public void testAddPatient() throws SQLException {
         System.out.println("addPatient");
         String ID = "5";
-        String Name = "John";
-        String Surname = "Doe";
+        String Name = "Walter";
+        String Surname = "White";
         String Address = "HollyBolly";
         String TelephoneNumber = "+37129193003";
         String Email = "aa@ee.lv";
@@ -85,93 +88,132 @@ public class PatientServiceTest extends TestCase {
 
     /**
      * Test of findPatientByID method, of class PatientService.
-     * REDO
      */
     @Test
-    public void testFindPatientByID() throws SQLException {
+    public void testFindPatientByID() {
         System.out.println("findPatientByID");
         String ID = "2";
-        Patient p = PatientService.findPatientByID(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '" + ID + "' AND NAME = 'Jane' AND "
-                + "SURNAME = 'Doe' AND ADDRESS = 'Bollywood' AND TELEPHONENUMBER = '+37188595867' AND "
-                + "EMAIL = 'bobewka@bob.lv' AND DOCTORID = 'doctorID3'");
-        if (rs.next()) {
-            
-            
-        }
+        Patient result = PatientService.findPatientByID(ID);
+        Patient expResult = new Patient(ID, "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        assertTrue((expResult.getId().equals(result.getId())) &&
+                expResult.getName().equals(result.getName()) &&
+                expResult.getSurname().equals(result.getSurname()) &&
+                expResult.getAddress().equals(result.getAddress()) &&
+                expResult.getNumber().equals(result.getNumber()) &&
+                expResult.getEmail().equals(result.getEmail()) &&
+                expResult.getFamilyDoctor().equals(result.getFamilyDoctor()));
     }
 
     /**
      * Test of findPatientsByFullname method, of class PatientService.
-     * REDO
      */
     @Test
-    public void testFindPatientsByFullname() throws SQLException {
+    public void testFindPatientsByFullname() {
         System.out.println("findPatientsByFullname");
         String name = "Jane";
         String surname = "Doe";
-        PatientService.findPatientsByFullname(name, surname);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '2' AND NAME = '" + name + "' AND "
-                + "SURNAME = '" + surname + "' AND ADDRESS = 'Bollywood' AND TELEPHONENUMBER = '+37188595867' AND "
-                + "EMAIL = 'bobewka@bob.lv' AND DOCTORID = 'doctorID3'");
-        if (rs.next()) {
-            assertTrue(true);
+        List<Patient> result = PatientService.findPatientsByFullname(name, surname);
+        Patient record = new Patient("2", name, surname, "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        List<Patient> expResult = new ArrayList<>();
+        expResult.add(record);
+        
+        for(int i=0; i<result.size(); i++){
+            Patient p1, p2;
+            p1 = result.get(i);
+            p2 = expResult.get(i);
+            //assertEquals(p1, p2);
+            
+            assertTrue((p1.getId().equals(p2.getId())) &&
+                p1.getName().equals(p2.getName()) &&
+                p1.getSurname().equals(p2.getSurname()) &&
+                p1.getAddress().equals(p2.getAddress()) &&
+                p1.getNumber().equals(p2.getNumber()) &&
+                p1.getEmail().equals(p2.getEmail()) &&
+                p1.getFamilyDoctor().equals(p2.getFamilyDoctor()));
         }
     }
+    
 
     /**
      * Test of findPatientsByDoctorID method, of class PatientService.
-     * REDO
      */
     @Test
-    public void testFindPatientsByDoctorID() throws SQLException {
+    public void testFindPatientsByDoctorID() {
         System.out.println("findPatientsByDoctorID");
         String doctorID = "doctorID3";
-        PatientService.findPatientsByDoctorID(doctorID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '2' AND NAME = 'Jane' AND "
-                + "SURNAME = 'Doe' AND ADDRESS = 'Bollywood' AND TELEPHONENUMBER = '+37188595867' AND "
-                + "EMAIL = 'bobewka@bob.lv' AND DOCTORID = '" + doctorID + "'");
-        if (rs.next()) {
-            assertTrue(true);
+        List<Patient> result = PatientService.findPatientsByDoctorID(doctorID);
+        Patient record = new Patient("2", "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", doctorID);
+        Patient record2 = new Patient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", doctorID);
+        List<Patient> expResult = new ArrayList<>();
+        expResult.add(record);
+        expResult.add(record2);
+//        for(Patient p : result){
+//            System.out.println(p.getName()+"YOLO");
+//        }
+//        for(Patient p : expResult){
+//            System.out.println(p.getName()+"SWAG");
+//        }
+        for(int i=0; i<result.size(); i++){
+            Patient p1, p2;
+            p1 = result.get(i);
+            p2 = expResult.get(i);
+            assertTrue((p1.getId().equals(p2.getId())) &&
+                p1.getName().equals(p2.getName()) &&
+                p1.getSurname().equals(p2.getSurname()) &&
+                p1.getAddress().equals(p2.getAddress()) &&
+                p1.getNumber().equals(p2.getNumber()) &&
+                p1.getEmail().equals(p2.getEmail()) &&
+                p1.getFamilyDoctor().equals(p2.getFamilyDoctor()));
         }
     }
 
     /**
      * Test of findPatientsBySurname method, of class PatientService.
-     * REDO
      */
     @Test
-    public void testFindPatientsBySurname() throws SQLException {
+    public void testFindPatientsBySurname() {
         System.out.println("findPatientsBySurname");
         String surname = "Doe";
-        PatientService.findPatientsBySurname(surname);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '2' AND NAME = 'Jane' AND "
-                + "SURNAME = '" + surname + "' AND ADDRESS = 'Bollywood' AND TELEPHONENUMBER = '+37188595867' AND "
-                + "EMAIL = 'bobewka@bob.lv' AND DOCTORID = 'doctorID3'");
-        if (rs.next()) {
-            assertTrue(true);
-        }
+        List<Patient> result = PatientService.findPatientsBySurname(surname);
+        Patient record = new Patient("2", "Jane", surname, "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        List<Patient> expResult = new ArrayList<>();
+        expResult.add(record);
+        for(int i=0; i<result.size(); i++){
+            Patient p1, p2;
+            p1 = result.get(i);
+            p2 = expResult.get(i);
+            assertTrue((p1.getId().equals(p2.getId())) &&
+                p1.getName().equals(p2.getName()) &&
+                p1.getSurname().equals(p2.getSurname()) &&
+                p1.getAddress().equals(p2.getAddress()) &&
+                p1.getNumber().equals(p2.getNumber()) &&
+                p1.getEmail().equals(p2.getEmail()) &&
+                p1.getFamilyDoctor().equals(p2.getFamilyDoctor()));
+        }      
     }
 
     /**
      * Test of findPatientsByName method, of class PatientService.
-     * REDO
      */
     @Test
-    public void testFindPatientsByName() throws SQLException {
+    public void testFindPatientsByName() {
         System.out.println("findPatientsByName");
         String name = "Jane";
-        PatientService.findPatientsByName(name);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '2' AND NAME = '" + name + "' AND "
-                + "SURNAME = 'Doe' AND ADDRESS = 'Bollywood' AND TELEPHONENUMBER = '+37188595867' AND "
-                + "EMAIL = 'bobewka@bob.lv' AND DOCTORID = 'doctorID3'");
-        if (rs.next()) {
-            assertTrue(true);
+        List<Patient> result = PatientService.findPatientsByName(name);
+        Patient record = new Patient("2", name, "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        List<Patient> expResult = new ArrayList<>();
+        expResult.add(record);
+        for(int i=0; i<result.size(); i++){
+            Patient p1, p2;
+            p1 = result.get(i);
+            p2 = expResult.get(i);
+            assertTrue((p1.getId().equals(p2.getId())) &&
+                p1.getName().equals(p2.getName()) &&
+                p1.getSurname().equals(p2.getSurname()) &&
+                p1.getAddress().equals(p2.getAddress()) &&
+                p1.getNumber().equals(p2.getNumber()) &&
+                p1.getEmail().equals(p2.getEmail()) &&
+                p1.getFamilyDoctor().equals(p2.getFamilyDoctor()));
         }
     }
     
