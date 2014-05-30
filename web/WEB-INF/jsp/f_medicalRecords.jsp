@@ -21,24 +21,26 @@
         <link href="css/styles.css" rel="stylesheet" >
         <link href="css/tableStyle.css" rel="stylesheet">
         <script type="text/javascript" >
-            var monthtext = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+            var monthtext = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
             function date_populate(dayfield, monthfield, yearfield) {
                 var today = new Date();
-                var dayfield = document.getElementById(dayfield)
-                var monthfield = document.getElementById(monthfield)
-                var yearfield = document.getElementById(yearfield)
+                var dayfield = document.getElementById(dayfield);
+                var monthfield = document.getElementById(monthfield);
+                var yearfield = document.getElementById(yearfield);
                 for (var i = 0; i < 31; i++)
-                    dayfield.options[i] = new Option(i + 1, i + 1)
-                dayfield.options[today.getDate()] = new Option(today.getDate(), today.getDate(), true, true) //select today's day
+                    dayfield.options[i] = new Option(i + 1, i + 1);
+
+                dayfield.options[today.getDate() - 1] = new Option(today.getDate(), today.getDate(), true, true) //select today's day
                 for (var m = 0; m < 12; m++)
-                    monthfield.options[m] = new Option(monthtext[m], monthtext[m])
+                    monthfield.options[m] = new Option(monthtext[m], monthtext[m]);
+
                 monthfield.options[today.getMonth()] = new Option(monthtext[today.getMonth()], monthtext[today.getMonth()], true, true) //select today's month
-                var thisyear = today.getFullYear()
+                var thisyear = today.getFullYear();
                 for (var y = 0; y < 100; y++) {
-                    yearfield.options[y] = new Option(thisyear, thisyear)
-                    thisyear -= 1
+                    yearfield.options[y] = new Option(thisyear, thisyear);
+                    thisyear -= 1;
                 }
-                yearfield.options[0] = new Option(today.getFullYear(), today.getFullYear(), true, true) //select today's year
+                yearfield.options[0] = new Option(today.getFullYear(), today.getFullYear(), true, true); //select today's year
             }
         </script>
     </head>
@@ -63,7 +65,6 @@
             <SELECT id ="year" name = "yyyy"></SELECT>
             <input type="submit" value="Find">
         </form><br>
-
         <script type="text/javascript">date_populate("date", "month", "year");</script>
 
 
@@ -93,13 +94,28 @@
                             out.print("<td>" + p.getName() + "</td>");
                             out.print("<td>" + p.getSurname() + "</td>");
                             out.print("<td>" + r.getFilePath() + "</td>");
-                            out.print("<td>VIEW</td>");
+                            out.print("<td><a href=\"/EAprupe/medicalRecord?ID="+ r.getId() +"\">VIEW</a></td>");
+                            out.print("<td>" + r.getDate() + "</td></tr>");
+                        }
+                    }
+                }
+            } else if (request.getAttribute("dd") != null && request.getAttribute("mm") != null && request.getAttribute("yyyy") != null) {
+                records = MedicalRecordService.findByDate((String) request.getAttribute("dd"), (String) request.getAttribute("mm"), (String) request.getAttribute("yyyy"));
+                if (records != null) {
+                    for (MedicalRecord r : records) {
+                        if (r.getAuthor().equals(user.getId())) {
+                            Patient p = PatientService.findPatientByID(r.getPatientId());
+                            out.print("<tr><td>" + r.getId() + "</td>");
+                            out.print("<td>" + r.getPatientId() + "</td>");
+                            out.print("<td>" + p.getName() + "</td>");
+                            out.print("<td>" + p.getSurname() + "</td>");
+                            out.print("<td>" + r.getFilePath() + "</td>");
+                            out.print("<td><a href=\"/EAprupe/medicalRecord?ID="+ r.getId() +"\">VIEW</a></td>");
                             out.print("<td>" + r.getDate() + "</td></tr>");
                         }
                     }
                 }
             }
-
         %>
 
 

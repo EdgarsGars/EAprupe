@@ -174,6 +174,9 @@ public class DefaultController {
         } else if (session.getAttribute("user") instanceof Patient) {
             map.addAttribute("medID", id);
             return "p_medicalRecord";
+        } else if (session.getAttribute("user") instanceof MedicalFacility) {
+            map.addAttribute("medID", id);
+            return "f_medicalRecord";
         }
         return "redirect:/home";
     }
@@ -200,9 +203,10 @@ public class DefaultController {
     public String addComment(@RequestParam("comment") String comment, @RequestParam("ID") String id, ModelMap map, HttpSession session) {
         if (session.getAttribute("user") instanceof Doctor) {
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
-            System.out.println("ID " + id);
-            System.out.println("Comment " + comment);
             MedicalRecordService.updateComment(id, comment);
+        }else if (session.getAttribute("user") instanceof MedicalFacility) {
+            MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
+            MedicalRecordService.updateDesc(id, comment);
         }
         return "redirect:/home";
     }

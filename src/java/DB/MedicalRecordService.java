@@ -5,7 +5,6 @@
  */
 package DB;
 
-
 import Users.MedicalRecord;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,6 +18,7 @@ import java.util.List;
  * @author Visi
  */
 public class MedicalRecordService {
+
     //TODOOOOOOOOOOOOOOOOOOOOOOOOOOO Change medical record adding and table so it makes ID as an int, and its unique and autoicrements.
     private static final Connection con = DBConnection.con;
 
@@ -48,7 +48,7 @@ public class MedicalRecordService {
                     + "Description, Date, Comments )" + "VALUES ('" + patientID + "','"
                     + authorID + "','" + patientDoctorID + "','" + filePath + "','"
                     + description + "','" + date + "','" + comments + "')");
-            System.out.println("New medicalRecord added to medicalRecords table: " );
+            System.out.println("New medicalRecord added to medicalRecords table: ");
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Couldn't add medicalRecord!");
@@ -105,7 +105,7 @@ public class MedicalRecordService {
         return null;
     }
 
-    public static List<MedicalRecord> findMedicalRecordsByDoctorID(String doctorID){
+    public static List<MedicalRecord> findMedicalRecordsByDoctorID(String doctorID) {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
@@ -127,9 +127,9 @@ public class MedicalRecordService {
             return null;
         }
     }
-    
+
     //NEW
-    public static List<MedicalRecord> findMedicalRecordsByFacilityID(String facilityID){
+    public static List<MedicalRecord> findMedicalRecordsByFacilityID(String facilityID) {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
@@ -151,17 +151,23 @@ public class MedicalRecordService {
             return null;
         }
     }
-    
-    
-    public static void updateComment(String medID,String comment){
-         try {
+
+    public static void updateComment(String medID, String comment) {
+        try {
             Statement st = con.createStatement();
-            st.executeUpdate("UPDATE medicalRecords SET Comments = '"+comment+"' WHERE ID ='" + medID + "';");
+            st.executeUpdate("UPDATE medicalRecords SET Comments = '" + comment + "' WHERE ID ='" + medID + "';");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
-        
+    }
+
+    public static void updateDesc(String medID, String desc) {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("UPDATE medicalRecords SET Description = '" + desc + "' WHERE ID ='" + medID + "';");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     /**
@@ -191,6 +197,28 @@ public class MedicalRecordService {
             return records;
         } else {
             System.out.println("Couldn't find medical records with patient id = " + patientID);
+            return null;
+        }
+    }
+
+    public static List<MedicalRecord> findByDate(String dd, String mm, String yyyy) {
+        ArrayList<MedicalRecord> records = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE Date LIKE '%/" + dd + " %' AND Date LIKE '%/" + mm + "/%' AND Date LIKE '" + yyyy + "/%' ");
+            while (rs.next()) {
+                System.out.println("Medical record found!");
+                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"), rs.getString("Comments"),
+                        rs.getString("Date"));
+                records.add(foundRecord);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (!records.isEmpty()) {
+            return records;
+        } else {
             return null;
         }
     }

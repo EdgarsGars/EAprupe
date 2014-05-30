@@ -175,13 +175,13 @@ public class DBConnection {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("CREATE TABLE  medicalRecords ( "
-                    + "ID varchar(20) NOT NULL UNIQUE,"
+                    + "ID Int(1) NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,"
                     + "PatientID varchar(32) NOT NULL,"
                     + "AuthorID varchar(32) NOT NULL,"
                     + "PatientDoctorID varchar(50) NOT NULL,"
                     + "FilePath varchar(100) NOT NULL,"
-                    + "Description varchar(100) NOT NULL,"
-                    + "Comments varchar(100) NOT NULL,"
+                    + "Description TEXT NOT NULL,"
+                    + "Comments TEXT NOT NULL,"
                     + "Date varchar(20) NOT NULL);");
             System.out.println("Created medicalRecords table!");
         } catch (SQLException ex) {
