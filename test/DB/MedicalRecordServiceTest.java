@@ -56,7 +56,6 @@ public class MedicalRecordServiceTest extends TestCase {
     @Test
     public void testAddMedicalRecords() throws SQLException {
         System.out.println("addMedicalRecords");
-        String ID = "5";
         String patientID = "123";
         String authorID = "321";
         String patientDoctorID = "medicalRecordPatientDoctorID";
@@ -64,9 +63,9 @@ public class MedicalRecordServiceTest extends TestCase {
         String description = "nav neka";
         String date = "16.05.2014";
         String comments = "Apsveicu, jums viss ir kartiba";
-        MedicalRecordService.addMedicalRecords(ID, patientID, authorID, patientDoctorID, filePath, description, date, comments);
+        MedicalRecordService.addMedicalRecords(patientID, authorID, patientDoctorID, filePath, description, date, comments);
         Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE ID = '" + ID + "' AND PATIENTID = '" + patientID + "' AND "
+        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE PATIENTID = '" + patientID + "' AND "
                 + "AUTHORID = '" + authorID + "' AND PATIENTDOCTORID = '" + patientDoctorID + "' AND FILEPATH = '" + filePath
                 + "' AND DESCRIPTION = '" + description + "' AND COMMENTS = '" + comments + "' AND DATE = '" + date + "'");
         if (rs.next()) {

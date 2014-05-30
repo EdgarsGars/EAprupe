@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
