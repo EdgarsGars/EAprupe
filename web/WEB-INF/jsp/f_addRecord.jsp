@@ -14,16 +14,16 @@
     </head>
     <body>
         <!--TOP MENU -->
+         <!--TOP MENU -->
         <div id='cssmenu'>
             <ul>
                 <li><a href='/EAprupe/home'><span>Home</span></a></li>
-                <li><a href='/EAprupe/patientSearch'><span>Patients</span></a></li>
-                 <li class='active'><a href='/EAprupe/addPatient'><span>Add Patient</span></a></li>
+                <li><a href='/EAprupe/medicalRecords'><span>Medical Records</span></a></li>
+                <li class='active'><a href='/EAprupe/addRecord'><span>Add Medical Record</span></a></li>
                 <li><a href='/EAprupe/settings'><span>Settings</span></a></li>
                 <li class='last'><a href='/EAprupe/logout'><span>Logout</span></a></li>
             </ul>
         </div>
-        <!--             -->
         <br>
 
         <form name="patientCreate" action="/EAprupe/addRecord" method="post">
