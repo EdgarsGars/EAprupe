@@ -57,8 +57,11 @@
                 Patient patient = PatientService.findPatientByID(ID);
                 if (patient != null) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
-                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
-                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td><td>" + patient.getNumber()+ "</td></tr>");
+                        out.print("<tr><td>" + patient.getId() + "</td>"
+                                + "<td><a href=\"/EAprupe/patient?patientID=" + patient.getId() + "\">" + patient.getName() + "</td>"
+                                + "<td>" + patient.getSurname() + "</td>"
+                                + "<td>" + patient.getAddress() + "</td>"
+                                + "<td>" + patient.getNumber() + "</td></tr>");
                     }
                 }
             } else if (name != null && surname != null) {
@@ -74,14 +77,16 @@
             if (patients != null) {
                 for (Patient patient : patients) {
                     if (patient.getFamilyDoctor().equals(((Doctor) session.getAttribute("user")).getId())) {
-                        out.print("<tr><td>" + patient.getId() + "</td><td><a href=\"/EAprupe/patient?patientID=" + patient.getId()
-                                + "\">" + patient.getName() + "</td><td>" + patient.getSurname() + "</td><td>" + patient.getAddress() + "</td><td>" + patient.getNumber() + "</td></tr>");
+                        out.print("<tr><td>" + patient.getId() + "</td>"
+                                + "<td><a href=\"/EAprupe/patient?patientID=" + patient.getId() + "\">" + patient.getName() + "</td>"
+                                + "<td>" + patient.getSurname() + "</td>"
+                                + "<td>" + patient.getAddress() + "</td>"
+                                + "<td>" + patient.getNumber() + "</td></tr>");
                     }
                 }
             }
 
             out.print("</table>");
-            request.setAttribute("userID", null);
         %>        
 
     </body>

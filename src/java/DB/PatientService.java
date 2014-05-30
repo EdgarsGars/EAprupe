@@ -81,7 +81,6 @@ public class PatientService {
      * Finds a patient in patients table by id and returns a patient
      *
      * @return patient if it was found
-     * @throws java.sql.SQLExceptionient
      *
      * @param ID
      *
@@ -118,7 +117,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '%" + name + "%' AND Surname LIKE '%" + surname + "%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + name + "%' AND Surname LIKE '" + surname + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + "Patient: " + rs.getString("ID") + " " + name + " " + surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -180,7 +179,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '%" + surname + "%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Surname LIKE '" + surname + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + surname);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
@@ -202,7 +201,7 @@ public class PatientService {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '%" + name + "%'");
+            ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE Name LIKE '" + name + "%'");
             while (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("ID") + " " + rs.getString("Name") + " " + name);
                 Patient foundPatient = new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),

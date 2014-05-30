@@ -19,7 +19,7 @@ import java.util.List;
  * @author Visi
  */
 public class MedicalRecordService {
-
+    //TODOOOOOOOOOOOOOOOOOOOOOOOOOOO Change medical record adding and table so it makes ID as an int, and its unique and autoicrements.
     private static final Connection con = DBConnection.con;
 
     /**
@@ -39,16 +39,16 @@ public class MedicalRecordService {
      *
      * @Veronika Pencaka
      */
-    public static boolean addMedicalRecords(String ID, String patientID,
+    public static boolean addMedicalRecords(String patientID,
             String authorID, String patientDoctorID, String filePath,
             String description, String date, String comments) {
         try {
             Statement st = con.createStatement();
-            st.executeUpdate("INSERT INTO medicalRecords(ID, PatientID, AuthorID, PatientDoctorID, FilePath, "
-                    + "Description, Date, Comments )" + "VALUES ('" + ID + "','" + patientID + "','"
+            st.executeUpdate("INSERT INTO medicalRecords(PatientID, AuthorID, PatientDoctorID, FilePath, "
+                    + "Description, Date, Comments )" + "VALUES ('" + patientID + "','"
                     + authorID + "','" + patientDoctorID + "','" + filePath + "','"
                     + description + "','" + date + "','" + comments + "')");
-            System.out.println("New medicalRecord added to medicalRecords table: " + ID);
+            System.out.println("New medicalRecord added to medicalRecords table: " );
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Couldn't add medicalRecord!");
@@ -126,8 +126,32 @@ public class MedicalRecordService {
             System.out.println("Couldn't find medical records with doctor id = " + doctorID);
             return null;
         }
-        
     }
+    
+    //NEW
+    public static List<MedicalRecord> findMedicalRecordsByFacilityID(String facilityID){
+        ArrayList<MedicalRecord> records = new ArrayList<>();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE AuthorID = '" + facilityID + "'");
+            while (rs.next()) {
+                System.out.println("Medical Record found: " + rs.getString("ID"));
+                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"), rs.getString("Comments"),
+                        rs.getString("Date"));
+                records.add(foundRecord);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (!records.isEmpty()) {
+            return records;
+        } else {
+            System.out.println("Couldn't find medical records with facility id = " + facilityID);
+            return null;
+        }
+    }
+    
     
     public static void updateComment(String medID,String comment){
          try {

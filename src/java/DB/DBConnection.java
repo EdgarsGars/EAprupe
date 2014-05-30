@@ -78,13 +78,13 @@ public class DBConnection {
         MedicalFacilityService.deleteMedicalFacility("1");
         MedicalFacilityService.findMedicalFacilityByID("3");
 
-        MedicalRecordService.addMedicalRecords("1", "7", "434", "medicalRecordPatientDoctorID",
+        MedicalRecordService.addMedicalRecords("7", "434", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "medicalRecordDescription", "medicalRecordDate", "medicalRecordComments");
-        MedicalRecordService.addMedicalRecords("2", "5", "67", "medicalRecordPatientDoctorID",
+        MedicalRecordService.addMedicalRecords("5", "67", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        MedicalRecordService.addMedicalRecords("3", "23", "42", "medicalRecordPatientDoctorID",
+        MedicalRecordService.addMedicalRecords("23", "42", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        MedicalRecordService.addMedicalRecords("4", "753", "843", "medicalRecordPatientDoctorID",
+        MedicalRecordService.addMedicalRecords("753", "843", "medicalRecordPatientDoctorID",
                 "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
         MedicalRecordService.deleteMedicalRecord("1");
         MedicalRecordService.findMedicalRecordByID("3");
