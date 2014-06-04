@@ -94,7 +94,8 @@ public class PatientServiceTest extends TestCase {
         System.out.println("findPatientByID");
         String ID = "2";
         Patient result = PatientService.findPatientByID(ID);
-        Patient expResult = new Patient(ID, "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        Patient expResult = new Patient(ID, "Jane", "Doe", 
+                "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
         assertTrue((expResult.getId().equals(result.getId())) &&
                 expResult.getName().equals(result.getName()) &&
                 expResult.getSurname().equals(result.getSurname()) &&

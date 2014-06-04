@@ -40,7 +40,7 @@ public class DefaultController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap map, HttpSession session) {
         if (session.getAttribute("user") == null) {
-            return "loginPage";
+            return "redirect:/login";
         } else {
             return "redirect:/home";
         }
@@ -103,7 +103,8 @@ public class DefaultController {
      * @return
      */
     @RequestMapping(value = "/authorize", method = RequestMethod.POST)
-    public String autorize(@RequestParam("username") String userID, @RequestParam("password") String password, ModelMap map, HttpSession session) {
+    public String autorize(@RequestParam("username") String userID, @RequestParam("password") String password,
+            ModelMap map, HttpSession session) {
         Object user = AccountService.Login(userID, password);
         session.setAttribute("user", user);
         if (user == null) {
@@ -204,7 +205,7 @@ public class DefaultController {
         if (session.getAttribute("user") instanceof Doctor) {
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
             MedicalRecordService.updateComment(id, comment);
-        }else if (session.getAttribute("user") instanceof MedicalFacility) {
+        } else if (session.getAttribute("user") instanceof MedicalFacility) {
             MedicalRecord r = MedicalRecordService.findMedicalRecordByID(id);
             MedicalRecordService.updateDesc(id, comment);
         }
@@ -241,16 +242,16 @@ public class DefaultController {
 
     //Record search from facility
     @RequestMapping(value = "/medicalRecords", method = RequestMethod.POST)
-    public String f_medRecordsSearch(@RequestParam("patientID") String patientID,@RequestParam("dd")String day,
-            @RequestParam("mm") String month,@RequestParam("yyyy")String year,
+    public String f_medRecordsSearch(@RequestParam("patientID") String patientID, @RequestParam("dd") String day,
+            @RequestParam("mm") String month, @RequestParam("yyyy") String year,
             ModelMap map, HttpSession session) {
         if (session.getAttribute("user") instanceof MedicalFacility) {
             String userID = ((MedicalFacility) session.getAttribute("user")).getId();
             map.addAttribute("facilityID", userID);
             map.addAttribute("patientID", patientID);
-            map.addAttribute("dd",day);
-            map.addAttribute("mm",month);
-            map.addAttribute("yyyy",year);
+            map.addAttribute("dd", day);
+            map.addAttribute("mm", month);
+            map.addAttribute("yyyy", year);
             return "f_medicalRecords";
         }
         return "redirect:/home";
@@ -268,12 +269,13 @@ public class DefaultController {
     public String f_addNewRecord(@RequestParam("userID") String patientID, @RequestParam("file") String file,
             @RequestParam("desc") String desc, ModelMap map, HttpSession session) {
         if (session.getAttribute("user") instanceof MedicalFacility) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            MedicalRecordService.addMedicalRecords(patientID, ((MedicalFacility) session.getAttribute("user")).getId(), PatientService.findPatientByID(patientID).getFamilyDoctor(), file, desc, dateFormat.format(date), "");
+            if (PatientService.findPatientByID(patientID) != null) {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                MedicalRecordService.addMedicalRecords(patientID, ((MedicalFacility) session.getAttribute("user")).getId(), PatientService.findPatientByID(patientID).getFamilyDoctor(), file, desc, dateFormat.format(date), "");
+            }
         }
         return "redirect:/home";
     }
 
-    
 }

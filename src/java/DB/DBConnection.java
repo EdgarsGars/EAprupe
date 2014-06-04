@@ -47,48 +47,18 @@ public class DBConnection {
     public static void resetDatabase() {
         dropDatabases();
         initDatabases();
-
-        AccountService.addAccount("1", "password", 1);
-        AccountService.addAccount("2", "password", 1);
-        AccountService.addAccount("3", "password", 1);
-        AccountService.addAccount("4", "password", 1);
-        AccountService.deleteAccount("1");
-
-        PatientService.addPatient("1", "Jane", "Doe", "Hollywood", "+37199595867", "bob@bob.lv", "doctorID");
-        PatientService.addPatient("2", "Jane", "Doe", "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
-        PatientService.addPatient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID3");
-        PatientService.addPatient("4", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID");
-        PatientService.deletePatient("1");
-        PatientService.findPatientByID("3");
-        PatientService.findPatientsByFullname("Jane", "Doe");
-        PatientService.findPatientsByDoctorID("doctorID3");
-        PatientService.findPatientsBySurname("Doe");
-
-        DoctorService.addDoctor("1", "John", "Doe", "Hollywood", "+37199595867");
-        DoctorService.addDoctor("2", "John", "Doe", "Hollywood", "+37199595867");
-        DoctorService.addDoctor("3", "John", "Doe", "Hollywood", "+37199595867");
-        DoctorService.addDoctor("4", "John", "Doe", "Hollywood", "+37199595867");
-        DoctorService.deleteDoctor("1");
-        DoctorService.findDoctorByID("3");
-
-        MedicalFacilityService.addMedicalFacility("1", "Stradina", "Riga", "+37123456789");
-        MedicalFacilityService.addMedicalFacility("2", "Stradina", "Riga", "+37123456789");
-        MedicalFacilityService.addMedicalFacility("3", "Stradina", "Riga", "+37123456789");
-        MedicalFacilityService.addMedicalFacility("4", "Stradina", "Riga", "+37123456789");
-        MedicalFacilityService.deleteMedicalFacility("1");
-        MedicalFacilityService.findMedicalFacilityByID("3");
-
-        MedicalRecordService.addMedicalRecords("7", "434", "medicalRecordPatientDoctorID",
-                "medicalRecordFilePath", "medicalRecordDescription", "medicalRecordDate", "medicalRecordComments");
-        MedicalRecordService.addMedicalRecords("5", "67", "medicalRecordPatientDoctorID",
-                "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        MedicalRecordService.addMedicalRecords("23", "42", "medicalRecordPatientDoctorID",
-                "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        MedicalRecordService.addMedicalRecords("753", "843", "medicalRecordPatientDoctorID",
-                "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
-        MedicalRecordService.deleteMedicalRecord("1");
-        MedicalRecordService.findMedicalRecordByID("3");
-        MedicalRecordService.findRecordByPatientID("2");
+        
+        AccountService.addAccount("D120", "doctor",  2);
+        AccountService.addAccount("D121", "doctor1", 2);
+        AccountService.addAccount("F220", "facility",  3);
+        AccountService.addAccount("F221", "facility1", 3);
+        
+        DoctorService.addDoctor("D120", "Darts", "Veiders", "Naves Zvaigze", "+666 66666666");
+        DoctorService.addDoctor("D121", "Karalis", "Leonids", "Sparta", "+ 371 10000000");
+        
+        MedicalFacilityService.addMedicalFacility("F220", "Traumpunkts", "Ventspils Inzeneiru iela 15", "+371 23456789");
+        MedicalFacilityService.addMedicalFacility("F221", "Dzemdību nodaļa", "Ventspils Inzeneiru iela 13", "+371 11111111");
+        
         System.out.println("Done!");
 
     }
@@ -175,7 +145,7 @@ public class DBConnection {
         try {
             Statement st = con.createStatement();
             st.executeUpdate("CREATE TABLE  medicalRecords ( "
-                    + "ID Int(1) NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,"
+                    + "ID Int(11) NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,"
                     + "PatientID varchar(32) NOT NULL,"
                     + "AuthorID varchar(32) NOT NULL,"
                     + "PatientDoctorID varchar(50) NOT NULL,"

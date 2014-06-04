@@ -205,11 +205,16 @@ public class MedicalRecordService {
         ArrayList<MedicalRecord> records = new ArrayList<>();
         try {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords WHERE Date LIKE '%/" + dd + " %' AND Date LIKE '%/" + mm + "/%' AND Date LIKE '" + yyyy + "/%' ");
+            ResultSet rs = st.executeQuery("SELECT * FROM medicalRecords "
+                    + " WHERE Date LIKE '%/" + dd + " %'"
+                    + " AND Date LIKE '%/" + mm + "/%'"
+                    + " AND Date LIKE '" + yyyy + "/%' ");
             while (rs.next()) {
                 System.out.println("Medical record found!");
-                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), rs.getString("PatientID"), rs.getString("AuthorID"),
-                        rs.getString("PatientDoctorID"), rs.getString("FilePath"), rs.getString("Description"), rs.getString("Comments"),
+                MedicalRecord foundRecord = new MedicalRecord(rs.getString("ID"), 
+                        rs.getString("PatientID"), rs.getString("AuthorID"),
+                        rs.getString("PatientDoctorID"), rs.getString("FilePath"),
+                        rs.getString("Description"), rs.getString("Comments"),
                         rs.getString("Date"));
                 records.add(foundRecord);
             }

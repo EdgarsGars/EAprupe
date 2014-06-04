@@ -28,6 +28,7 @@ public class PatientService {
      * @param Name
      * @param Surname
      * @param Address
+     * @param TelephoneNumber
      * @param TelephonNumber
      * @param Email
      * @param DoctorID
@@ -93,8 +94,8 @@ public class PatientService {
             if (rs.next()) {
                 System.out.println("Patient found: " + rs.getString("Name") + " " + rs.getString("Surname"));
                 return new Patient(rs.getString("ID"), rs.getString("Name"), rs.getString("Surname"),
-                        rs.getString("Address"), rs.getString("TelephoneNumber"), rs.getString("Email"), rs.getString("DoctorID"));
-
+                        rs.getString("Address"), rs.getString("TelephoneNumber"),
+                        rs.getString("Email"), rs.getString("DoctorID"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -35,12 +35,15 @@
         <table style="width: 400px">
             <tr><th>ID</th><th> Patient Name </th><th> Date </th></tr>
                     <%
+
                         String ID = ((Doctor) request.getAttribute("user")).getId();
                         List<MedicalRecord> records = MedicalRecordService.findMedicalRecordsByDoctorID(ID);
-                        for (MedicalRecord r : records) {
-                            if (r.getComments() == null || r.getComments().length() == 0) {
-                                Patient p = PatientService.findPatientByID(r.getPatientId());
-                                out.print("<tr><td>" + r.getId() + "</td><td><a href='/EAprupe/medicalRecord?ID=" + r.getId() + "'> " + p.getName() + " " + p.getSurname() + "</a></td><td>" + r.getDate() + "</td></tr>");
+                        if (records != null) {
+                            for (MedicalRecord r : records) {
+                                if (r.getComments() == null || r.getComments().length() == 0) {
+                                    Patient p = PatientService.findPatientByID(r.getPatientId());
+                                    out.print("<tr><td>" + r.getId() + "</td><td><a href='/EAprupe/medicalRecord?ID=" + r.getId() + "'> " + p.getName() + " " + p.getSurname() + "</a></td><td>" + r.getDate() + "</td></tr>");
+                                }
                             }
                         }
                     %>           
