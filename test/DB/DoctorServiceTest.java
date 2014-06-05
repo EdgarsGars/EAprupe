@@ -88,9 +88,9 @@ public class DoctorServiceTest extends TestCase {
     @Test
     public void testFindDoctorByID() throws SQLException {
         System.out.println("findDoctorByID");
-        String ID = "2";
+        String ID = "D120";
         Doctor result = DoctorService.findDoctorByID(ID);
-        Doctor expResult = new Doctor("2", "John", "Doe", "Hollywood", "+37199595867");
+        Doctor expResult = new Doctor("D120", "Darts", "Veiders", "Naves Zvaigze", "+666 66666666");
         assertTrue((expResult.getId().equals(result.getId())) &&
                 expResult.getName().equals(result.getName()) &&
                 expResult.getSurname().equals(result.getSurname()) &&

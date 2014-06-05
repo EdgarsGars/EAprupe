@@ -5,6 +5,7 @@
  */
 package DB;
 
+import Users.Doctor;
 import static org.junit.Assert.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,9 +51,11 @@ public class AccountServiceTest extends TestCase {
      * Test of Login method, of class AccountService.
      */
     public void testLogin() throws SQLException {
-        String ID = "9"; 
-        String Password = "password3";
-        AccountService.Login(ID, Password);
+        String ID = "D120"; 
+        String b = new String();
+        String Password = "doctor";
+        Object ob = AccountService.Login(ID, Password);
+        assertTrue(ob instanceof Doctor);
         Statement st = DBConnection.con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM accounts WHERE ID = '" + ID + "' AND Password = '" + Password + "'");
         if (rs.next())
