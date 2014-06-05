@@ -6,10 +6,15 @@
 package DB;
 
 
+import Users.MedicalRecord;
+import Users.Patient;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -58,6 +63,14 @@ public class DBConnection {
         
         MedicalFacilityService.addMedicalFacility("F220", "Traumpunkts", "Ventspils Inzeneiru iela 15", "+371 23456789");
         MedicalFacilityService.addMedicalFacility("F221", "Dzemdību nodaļa", "Ventspils Inzeneiru iela 13", "+371 11111111");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        MedicalRecordService.addMedicalRecords("23", "42","medicalRecordPatientDoctorID2", "medicalRecordFilePath", "tur kaut-kas kustas" ,dateFormat.format(date), "Apsveicu, jums ir meitene!");
+        MedicalRecordService.addMedicalRecords("5", "67", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas","16.05.2014", "Apsveicu, jums ir meitene!");
+        MedicalRecordService.addMedicalRecords("23", "42", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas", "16.05.2014", "Apsveicu, jums ir meitene!");
+        MedicalRecordService.addMedicalRecords("753", "843", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas","16.05.2014", "Apsveicu, jums ir meitene!");
+        PatientService.addPatient("2", "Jane", "Doe",  "Bollywood", "+37188595867", "bobewka@bob.lv", "doctorID3");
+        PatientService.addPatient("3", "Bob", "Square", "Bollywood", "+37188576867", "gubka@bob.lv", "doctorID3");
         
         System.out.println("Done!");
 

@@ -71,20 +71,7 @@ public class PatientServiceTest extends TestCase {
         }
     }
 
-    /**
-     * Test of deletePatient method, of class PatientService.
-     */
-    @Test
-    public void testDeletePatient() throws SQLException {
-        System.out.println("deletePatient");
-        String ID = "5";
-        PatientService.deletePatient(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '" + ID + "'");
-        if (!rs.next()) {
-            assertTrue(true);
-        }
-    }
+   
 
     /**
      * Test of findPatientByID method, of class PatientService.
@@ -215,6 +202,21 @@ public class PatientServiceTest extends TestCase {
                 p1.getNumber().equals(p2.getNumber()) &&
                 p1.getEmail().equals(p2.getEmail()) &&
                 p1.getFamilyDoctor().equals(p2.getFamilyDoctor()));
+        }
+    }
+    
+     /**
+     * Test of deletePatient method, of class PatientService.
+     */
+    @Test
+    public void testDeletePatient() throws SQLException {
+        System.out.println("deletePatient");
+        String ID = "5";
+        PatientService.deletePatient(ID);
+        Statement st = DBConnection.con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM patients WHERE ID = '" + ID + "'");
+        if (!rs.next()) {
+            assertTrue(true);
         }
     }
     

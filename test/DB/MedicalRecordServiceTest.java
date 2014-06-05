@@ -13,7 +13,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertTrue;
@@ -73,20 +76,7 @@ public class MedicalRecordServiceTest extends TestCase {
         }
     }
 
-    /**
-     * Test of deleteMedicalRecord method, of class MedicalRecordService.
-     */
-    @Test
-    public void testDeleteMedicalRecord() throws SQLException {
-        System.out.println("deleteMedicalRecord");
-        String ID = "5";
-        MedicalRecordService.deleteMedicalRecord(ID);
-        Statement st = DBConnection.con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE ID = '" + ID + "'");
-        if (!rs.next()) {
-            assertTrue(true);
-        }
-    }
+    
 
     /**
      * Test of findMedicalRecordByID method, of class MedicalRecordService.
@@ -94,9 +84,9 @@ public class MedicalRecordServiceTest extends TestCase {
     @Test
     public void testFindMedicalRecordByID() throws SQLException {
         System.out.println("findMedicalRecordByID");
-        String ID = "3";
+        String ID = "1";
         MedicalRecord result = MedicalRecordService.findMedicalRecordByID(ID);
-        MedicalRecord expResult = new MedicalRecord(ID, "23", "42", "medicalRecordPatientDoctorID", "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!", "16.05.2014");
+        MedicalRecord expResult = new MedicalRecord(ID, "23", "42", "medicalRecordPatientDoctorID2", "medicalRecordFilePath", "tur kaut-kas kustas", "Apsveicu, jums ir meitene!",result.getDate());
         assertTrue((expResult.getId().equals(result.getId())) &&
                 expResult.getPatientId().equals(result.getPatientId()) &&
                 expResult.getAuthor().equals(result.getAuthor()) &&
@@ -165,4 +155,18 @@ public class MedicalRecordServiceTest extends TestCase {
         }
     }
     
+    /**
+     * Test of deleteMedicalRecord method, of class MedicalRecordService.
+     */
+    @Test
+    public void testDeleteMedicalRecord() throws SQLException {
+        System.out.println("deleteMedicalRecord");
+        String ID = "5";
+        MedicalRecordService.deleteMedicalRecord(ID);
+        Statement st = DBConnection.con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM medicalrecords WHERE ID = '" + ID + "'");
+        if (!rs.next()) {
+            assertTrue(true);
+        }
+    }
 }

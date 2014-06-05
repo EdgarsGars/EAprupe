@@ -52,6 +52,7 @@ public class MedicalFacilityServiceTest extends TestCase {
     @Test
     public void testAddMedicalFacility() throws SQLException {
         System.out.println("addMedicalFacility");
+        
         String ID = "5";
         String name = "Stradina";
         String address = "Riga";
@@ -88,6 +89,7 @@ public class MedicalFacilityServiceTest extends TestCase {
     public void testFindMedicalFacilityByID() throws SQLException {
         System.out.println("findMedicalFacilityByID");
         String ID = "4";
+        MedicalFacilityService.addMedicalFacility(ID,"Stradina","Riga","+37123456789");
         MedicalFacility result = MedicalFacilityService.findMedicalFacilityByID(ID);
         MedicalFacility expResult = new MedicalFacility(ID, "Stradina", "Riga", "+37123456789");
         assertTrue((expResult.getId().equals(result.getId())) &&
